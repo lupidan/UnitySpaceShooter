@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour, IPooledObject {
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -12,4 +14,14 @@ public class Bullet : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void OnSpawn()
+    {
+
+    }
+
+    public void OnDespawn()
+    {
+
+    }
 }

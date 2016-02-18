@@ -145,7 +145,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f9ab966dfe0c7cc4eb27412dce845cf0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a02dc0de157e2c44aae57a69e95e4ec7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -529,7 +529,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec7e4295dca72cd419453c992a677ca3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f68e73769de9bd1478170e1f9f0267a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -540,7 +540,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 616583609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: -1.24, y: -3.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -556,6 +556,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b5426ecf212b54f8ec80668f373f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseControls: 0
+  playableWorldArea:
+    serializedVersion: 2
+    x: -8
+    y: -5
+    width: 16
+    height: 10
 --- !u!58 &616583614
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -815,7 +822,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -70, y: 0}
-  m_SizeDelta: {x: 99, y: 75}
+  m_SizeDelta: {x: 112, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1818642207
 MonoBehaviour:
@@ -836,7 +843,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ec7e4295dca72cd419453c992a677ca3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f68e73769de9bd1478170e1f9f0267a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
