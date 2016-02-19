@@ -3,20 +3,20 @@ using System.Collections;
 
 public class Ship : MonoBehaviour {
 
-    public bool mouseControls = false;
+    private bool isMouseControlEnabled = false;
 
     
 
 	// Use this for initialization
 	void Start ()
     {
+        this.isMouseControlEnabled = GamePlayerPrefs.IsMouseControlEnabled;
 	}
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.mousePresent && mouseControls)
+        if (GamePlayerPrefs.IsMouseControlEnabled)
         {
             UpdateMouseControls();
         }
@@ -31,13 +31,15 @@ public class Ship : MonoBehaviour {
     {
         Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
         Vector3 newPosition = transform.position + (inputVector * 5.0f * Time.deltaTime);
-        SetPosition(newPosition);
+        this.transform.position = newPosition;
     }
 
     private void UpdateMouseControls()
     {
         Vector3 positionVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        SetPosition(positionVector);
+        positionVector.z = this.transform.position.z;
+        this.transform.position = positionVector;
+        
     }
 
 
