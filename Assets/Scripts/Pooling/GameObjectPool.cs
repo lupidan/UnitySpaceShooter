@@ -62,6 +62,11 @@ public class GameObjectPool {
     public GameObject pooledPrefab { get; private set; }
 
     /// <summary>
+    /// The last number of created instances. This will be used to increase the number of pooled objects available exponentially.
+    /// </summary>
+    private int lastCreatedAmount = 0;
+
+    /// <summary>
     /// Creates a GameObjectPool for a specific GameObject. With an optional initial amount.
     /// </summary>
     /// <param name="gameObject">The GameObject this pool will instantiate.</param>
@@ -85,7 +90,7 @@ public class GameObjectPool {
         GameObject gameObject = null;
         if (pooledObjects.Count == 0)
         {
-            InstantiatePooledObject();
+            InstantiatePooledObjects(lastCreatedAmount * 2);
         }
         gameObject = pooledObjects.Dequeue();
         gameObject.SetActive(true);
@@ -138,5 +143,6 @@ public class GameObjectPool {
         {
             InstantiatePooledObject();
         }
+        lastCreatedAmount = numberOfObjects;
     }
 }

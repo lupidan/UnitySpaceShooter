@@ -53,7 +53,7 @@ public class GameObjectPoolManager : MonoBehaviour {
     {
         foreach (GameObject gameObject in prefabs)
         {
-            GameObjectPool prefabPool = new GameObjectPool(gameObject, 10);
+            GameObjectPool prefabPool = new GameObjectPool(gameObject, 1);
             gameObjectPools.Add(gameObject.name, prefabPool);
         }
     }
