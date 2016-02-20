@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - PlayerShip
+  - Player
+  - PlayerInvincible
   - Enemy
-  - 
   - 
   - 
   - 

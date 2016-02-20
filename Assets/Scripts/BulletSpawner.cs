@@ -20,7 +20,7 @@ public class BulletSpawner : MonoBehaviour {
             if (bullet != null)
             {
                 bullet.linearSpeed = new Vector3(0.0f, -10.0f, 0.0f);
-                bullet.collisionLayerMask = LayerMask.NameToLayer("PlayerShip");
+                bullet.collisionLayerMask = LayerMask.GetMask("Player");
                 bullet.poolManager = poolManager;
             }
         }

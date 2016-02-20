@@ -25,22 +25,28 @@
 using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// The LaserBullet class defines a type of bullet that sets its rotation according to the direction the bullet is going.
-/// </summary>
-public class LaserBullet : Bullet {
+public static class LayerMaskExtensions {
 
     /// <summary>
-    /// Offset correction for the game object rotation.
+    /// Returns whether or not a LayerMask contains a specific layer index.
     /// </summary>
-    public float angleOffset = 90.0f;
-
-	public override void Update ()
+    /// <param name="layerMask">The receiver LayerMask.</param>
+    /// <param name="layerIndex">The index of the layer we want to check.</param>
+    /// <returns>true if the LayerMask contains the index (a.k.a. bit is active), false otherwise</returns>
+    public static bool ContainsLayerWithIndex(this LayerMask layerMask, int layerIndex)
     {
-        base.Update();
+        return layerMask == (layerMask | (1 << layerIndex));
+    }
 
-        float angle = Mathf.Atan2(linearSpeed.y, linearSpeed.x) * Mathf.Rad2Deg;
-        angle += angleOffset;
-        transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-	}
+    /// <summary>
+    /// Returns whether or not a LayerMask contains a specific layer.
+    /// </summary>
+    /// <param name="layerMask">The receiver LayerMask.</param>
+    /// <param name="name">The name of the layer we want to check.</param>
+    /// <returns>true if the LayerMask contains the layer (a.k.a. bit is active), false otherwise</returns>
+    public static bool ContainsLayerNamed(this LayerMask layerMask, string name)
+    {
+        return layerMask.ContainsLayerWithIndex(LayerMask.NameToLayer(name));
+    }
+
 }

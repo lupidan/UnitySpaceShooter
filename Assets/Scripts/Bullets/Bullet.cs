@@ -31,10 +31,10 @@ using System.Collections;
 public interface IBulletHittable
 {
     /// <summary>
-    /// Methods called in the component when the GameObject collides with a bullet.
+    /// Method called when a Bullet did hit another IBulletHittable object.
     /// </summary>
-    /// <param name="damage">The amount of damage to apply.</param>
-    void ApplyBulletDamage(float damage);
+    /// <param name="bullet">The bullet that hit the object.</param>
+    void BulletDidHit(Bullet bullet);
 }
 
 /// <summary>
@@ -87,14 +87,13 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if ((collisionLayerMask.value & other.gameObject.layer) != 0)
+        if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
         {
             IBulletHittable[] bulletHittables = other.gameObject.GetComponents<IBulletHittable>();
             foreach (IBulletHittable bulletHittable in bulletHittables)
             {
-                bulletHittable.ApplyBulletDamage(damage);
+                bulletHittable.BulletDidHit(this);
             }
-
             poolManager.RecycleGameObject(gameObject.name, gameObject);
         }
     }

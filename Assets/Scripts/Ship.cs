@@ -25,7 +25,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Ship : MonoBehaviour, IBulletHittable {
+public class Ship : MonoBehaviour, IBulletHittable, IPooledObject {
 
     /// <summary>
     /// The rectangular area the ship is limited to play in.
@@ -61,6 +61,7 @@ public class Ship : MonoBehaviour, IBulletHittable {
         set
         {
             _invincible = value;
+            gameObject.layer = LayerMask.NameToLayer(_invincible ? "PlayerInvincible" : "Player");
             UpdateShipAlpha();
         }
     }
@@ -147,12 +148,32 @@ public class Ship : MonoBehaviour, IBulletHittable {
         spriteRenderer.color = color;
     }
 
-    public void ApplyBulletDamage(float damage)
+    private void SetVulnerable()
     {
-        health -= damage;
+        Invincible = false;
+    }
+
+    public void BulletDidHit(Bullet bullet)
+    {
+        health -= bullet.damage;
         if (health < 0.0)
         {
             Destroy(gameObject);
         }
+        else
+        {
+            Invincible = true;
+            Invoke("SetVulnerable", 1.0f);
+        }
+    }
+
+    public void OnSpawn()
+    {
+        health = 100.0f;
+    }
+
+    public void OnDespawn()
+    {
+
     }
 }
