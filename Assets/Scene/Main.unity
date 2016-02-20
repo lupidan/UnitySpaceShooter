@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 8697057}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: -2663371497217273435, guid: 0000000000000000d000000000000000, type: 0}
@@ -1087,8 +1087,9 @@ GameObject:
   - 4: {fileID: 616583611}
   - 212: {fileID: 616583610}
   - 58: {fileID: 616583614}
+  - 50: {fileID: 616583613}
   - 114: {fileID: 616583612}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1157,6 +1158,23 @@ MonoBehaviour:
     height: 10
   laserPosition: {fileID: 8697057}
   poolManager: {fileID: 445399208}
+--- !u!50 &616583613
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616583609}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &616583614
 CircleCollider2D:
   m_ObjectHideFlags: 0

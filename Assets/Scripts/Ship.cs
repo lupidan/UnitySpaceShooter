@@ -25,7 +25,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Ship : MonoBehaviour {
+public class Ship : MonoBehaviour, IBulletHittable {
 
     /// <summary>
     /// The rectangular area the ship is limited to play in.
@@ -41,6 +41,11 @@ public class Ship : MonoBehaviour {
     /// The main GameObject pool manager from where to retrieve bullets.
     /// </summary>
     public GameObjectPoolManager poolManager = null;
+
+    /// <summary>
+    /// The ship's health
+    /// </summary>
+    public float health = 100.0f;
 
 
     private bool _invincible = false;
@@ -140,5 +145,14 @@ public class Ship : MonoBehaviour {
         Color color = spriteRenderer.color;
         color.a = Invincible ? 0.5f : 1.0f;
         spriteRenderer.color = color;
+    }
+
+    public void ApplyBulletDamage(float damage)
+    {
+        health -= damage;
+        if (health < 0.0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

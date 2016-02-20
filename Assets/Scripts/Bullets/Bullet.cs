@@ -26,11 +26,31 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
+/// The IBulletHittable defines an interface for something that can be hittable by a bullet
+/// </summary>
+public interface IBulletHittable
+{
+    /// <summary>
+    /// Methods called in the component when the GameObject collides with a bullet.
+    /// </summary>
+    /// <param name="damage">The amount of damage to apply.</param>
+    void ApplyBulletDamage(float damage);
+}
+
+/// <summary>
 /// The Bullet class defines a bullet being shot with a certain linear speed.
 /// </summary>
 public class Bullet : MonoBehaviour, IPooledObject {
 
+    /// <summary>
+    /// The area in where this bullet can live. Getting outside this area will return the bullet to the pool.
+    /// </summary>
     public Rect activeArea = new Rect();
+
+    /// <summary>
+    /// The amount of damage the bullet can do.
+    /// </summary>
+    public float damage = 1.0f;
 
     /// <summary>
     /// The linear speed of the bullet
@@ -65,12 +85,28 @@ public class Bullet : MonoBehaviour, IPooledObject {
         Gizmos.DrawLine(new Vector3(activeArea.xMin, activeArea.yMax, 0.0f), new Vector3(activeArea.xMin, activeArea.yMin, 0.0f));
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((collisionLayerMask.value & other.gameObject.layer) != 0)
+        {
+            IBulletHittable[] bulletHittables = other.gameObject.GetComponents<IBulletHittable>();
+            foreach (IBulletHittable bulletHittable in bulletHittables)
+            {
+                bulletHittable.ApplyBulletDamage(damage);
+            }
+
+            poolManager.RecycleGameObject(gameObject.name, gameObject);
+        }
+    }
+
     public void OnSpawn()
     {
         linearSpeed = Vector3.zero;
+        collisionLayerMask = 0;
     }
 
     public void OnDespawn()
     {
+        collisionLayerMask = 0;
     }
 }
