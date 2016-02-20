@@ -27,13 +27,43 @@ using System.Collections;
 
 public class Ship : MonoBehaviour {
 
+    /// <summary>
+    /// The rectangular area the ship is limited to play in.
+    /// </summary>
+    public Rect gameArea = new Rect();
+
+    /// <summary>
+    /// A Transform object indicating from where to shoot the bullets.
+    /// </summary>
+    public Transform laserPosition = null;
+
+    /// <summary>
+    /// The main GameObject pool manager from where to retrieve bullets.
+    /// </summary>
     public GameObjectPoolManager poolManager = null;
+
+
+    private bool _invincible = false;
+    /// <summary>
+    /// Whether the ship is invincible or not.
+    /// </summary>
+    public bool Invincible
+    {
+        get
+        {
+            return _invincible;
+        }
+        set
+        {
+            _invincible = value;
+            UpdateShipAlpha();
+        }
+    }
 
 	void Start ()
     {
 	}
 
-    // Update is called once per frame
     void Update()
     {
         if (GamePlayerPrefs.IsMouseControlEnabled)
@@ -47,11 +77,23 @@ public class Ship : MonoBehaviour {
         
     }
 
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(new Vector3(gameArea.xMin, gameArea.yMin, 0.0f), new Vector3(gameArea.xMax, gameArea.yMin, 0.0f));
+        Gizmos.DrawLine(new Vector3(gameArea.xMax, gameArea.yMin, 0.0f), new Vector3(gameArea.xMax, gameArea.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(gameArea.xMax, gameArea.yMax, 0.0f), new Vector3(gameArea.xMin, gameArea.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(gameArea.xMin, gameArea.yMax, 0.0f), new Vector3(gameArea.xMin, gameArea.yMin, 0.0f));
+    }
+
+    /// <summary>
+    /// This method updates the ship's position checking the Keyboard input.
+    /// </summary>
     private void UpdateKeyboardControls()
     {
         Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
         Vector3 newPosition = transform.position + (inputVector * 5.0f * Time.deltaTime);
-        this.transform.position = newPosition;
+        this.transform.position = gameArea.ClampPosition(newPosition);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -59,11 +101,14 @@ public class Ship : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// This method updates the ship's position checking the Mouse inputs.
+    /// </summary>
     private void UpdateMouseControls()
     {
         Vector3 positionVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         positionVector.z = this.transform.position.z;
-        this.transform.position = positionVector;
+        this.transform.position = gameArea.ClampPosition(positionVector);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -71,19 +116,29 @@ public class Ship : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Shoots a bullet from the laser position.
+    /// </summary>
     private void ShootBullet()
     {
-        GameObject bulletGameObject = poolManager.SpawnPrefabNamed("LaserBulletBlue");
-        Debug.Log(bulletGameObject.transform.position);
-        bulletGameObject.transform.position = transform.position;
-        Debug.Log(bulletGameObject.transform.position);
+        GameObject bulletGameObject = poolManager.SpawnPrefabNamed("LaserBulletGreen");
+        bulletGameObject.transform.position = (laserPosition != null) ? laserPosition.position : transform.position;
         Bullet bullet = bulletGameObject.GetComponent<Bullet>();
         if (bullet != null)
         {
-            bullet.linearSpeed = new Vector3(Random.Range(-3.0f,3.0f), 10.0f, 0.0f);
+            bullet.linearSpeed = new Vector3(0.0f, 10.0f, 0.0f);
             bullet.poolManager = poolManager;
         }
     }
 
-    
+    /// <summary>
+    /// Updates ship alpha depending on the Invincible status.
+    /// </summary>
+    private void UpdateShipAlpha()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Color color = spriteRenderer.color;
+        color.a = Invincible ? 0.5f : 1.0f;
+        spriteRenderer.color = color;
+    }
 }

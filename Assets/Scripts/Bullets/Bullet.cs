@@ -30,6 +30,8 @@ using System.Collections;
 /// </summary>
 public class Bullet : MonoBehaviour, IPooledObject {
 
+    public Rect activeArea = new Rect();
+
     /// <summary>
     /// The linear speed of the bullet
     /// </summary>
@@ -48,10 +50,19 @@ public class Bullet : MonoBehaviour, IPooledObject {
     public virtual void Update()
     {
         transform.position += linearSpeed * Time.deltaTime;
-        if (transform.position.y > 20.0f)
+        if (!activeArea.Contains(transform.position))
         {
             poolManager.RecycleGameObject(gameObject.name, gameObject);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(new Vector3(activeArea.xMin, activeArea.yMin, 0.0f), new Vector3(activeArea.xMax, activeArea.yMin, 0.0f));
+        Gizmos.DrawLine(new Vector3(activeArea.xMax, activeArea.yMin, 0.0f), new Vector3(activeArea.xMax, activeArea.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(activeArea.xMax, activeArea.yMax, 0.0f), new Vector3(activeArea.xMin, activeArea.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(activeArea.xMin, activeArea.yMax, 0.0f), new Vector3(activeArea.xMin, activeArea.yMin, 0.0f));
     }
 
     public void OnSpawn()
