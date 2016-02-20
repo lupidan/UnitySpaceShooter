@@ -24,31 +24,17 @@
 
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class GameControl : MonoBehaviour {
+public class LaserBullet : Bullet {
 
-    private int _lives = 0;
-    public int Lives
+    public float angleOffset = 90.0f;
+
+	public override void Update ()
     {
-        set
-        {
-            _lives = value;
-        }
-        get
-        {
-            return _lives;
-        }
-    }
+        base.Update();
 
-	// Use this for initialization
-	void Start () {
+        float angle = Mathf.Atan2(linearSpeed.y, linearSpeed.x) * Mathf.Rad2Deg;
+        angle += angleOffset;
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-   
 }
