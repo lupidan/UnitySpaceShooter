@@ -23,7 +23,6 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// A wrapper class to manage all the GamePrefs for the game.

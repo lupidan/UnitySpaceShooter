@@ -75,34 +75,6 @@ public class PlayerShip : Ship
         }
     }
 
-	protected override void Start ()
-    {
-        base.Start();
-	}
-
-    protected override void Update()
-    {
-        base.Update();
-        if (GamePlayerPrefs.IsMouseControlEnabled)
-        {
-            UpdateMouseControls();
-        }
-        else
-        {
-            UpdateKeyboardControls();
-        }
-        
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(new Vector3(gameArea.xMin, gameArea.yMin, 0.0f), new Vector3(gameArea.xMax, gameArea.yMin, 0.0f));
-        Gizmos.DrawLine(new Vector3(gameArea.xMax, gameArea.yMin, 0.0f), new Vector3(gameArea.xMax, gameArea.yMax, 0.0f));
-        Gizmos.DrawLine(new Vector3(gameArea.xMax, gameArea.yMax, 0.0f), new Vector3(gameArea.xMin, gameArea.yMax, 0.0f));
-        Gizmos.DrawLine(new Vector3(gameArea.xMin, gameArea.yMax, 0.0f), new Vector3(gameArea.xMin, gameArea.yMin, 0.0f));
-    }
-
     /// <summary>
     /// This method updates the ship's position checking the Keyboard input.
     /// </summary>
@@ -144,17 +116,45 @@ public class PlayerShip : Ship
         spriteRenderer.color = color;
     }
 
+    /// <summary>
+    /// Sets the ship invincible for a specified number of seconds.
+    /// </summary>
+    /// <param name="numberOfSeconds">The number of seconds this ship should be invincible.</param>
     public void SetInvincibleForTime(float numberOfSeconds)
     {
         gameObject.layer = PlayerShip.InvincibleLayer;
+        CancelInvoke("SetVulnerable");
         Invoke("SetVulnerable", numberOfSeconds);
         UpdateShipAlpha();
     }
 
+    /// <summary>
+    /// Sets the ship back to being vulnerable.
+    /// </summary>
     private void SetVulnerable()
     {
         gameObject.layer = PlayerShip.NormalLayer;
         UpdateShipAlpha();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (GamePlayerPrefs.IsMouseControlEnabled)
+        {
+            UpdateMouseControls();
+        }
+        else
+        {
+            UpdateKeyboardControls();
+        }
+        
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        gameArea.DrawGizmo();
     }
 
     public override void BulletDidHit(Bullet bullet)
@@ -166,13 +166,4 @@ public class PlayerShip : Ship
         }
     }
 
-    public override void OnSpawn()
-    {
-        base.OnSpawn();
-    }
-
-    public override void OnDespawn()
-    {
-        base.OnSpawn();
-    }
 }

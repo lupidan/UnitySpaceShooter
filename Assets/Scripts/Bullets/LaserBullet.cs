@@ -23,7 +23,6 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// The LaserBullet class defines a type of bullet that sets its rotation according to the direction the bullet is going.
@@ -39,8 +38,7 @@ public class LaserBullet : Bullet {
     {
         base.Update();
 
-        float angle = Mathf.Atan2(linearSpeed.y, linearSpeed.x) * Mathf.Rad2Deg;
-        angle += angleOffset;
+        float angle = direction + angleOffset;
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
 	}
 }

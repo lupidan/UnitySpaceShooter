@@ -23,7 +23,6 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// The IBulletHittable defines an interface for something that can be hittable by a bullet
@@ -53,9 +52,19 @@ public class Bullet : MonoBehaviour, IPooledObject {
     public float damage = 1.0f;
 
     /// <summary>
-    /// The linear speed of the bullet
+    /// The direction of the bullet in degrees.
     /// </summary>
-    public Vector3 linearSpeed = Vector3.zero;
+    public float direction = 270.0f;
+
+    /// <summary>
+    /// The speed of the bullet.
+    /// </summary>
+    public float speed = 10.0f;
+
+    /// <summary>
+    /// The acceleration of the bullet.
+    /// </summary>
+    public float acceleration = 0.0f;
 
     /// <summary>
     /// The mask to check for collisions
@@ -69,7 +78,11 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
     public virtual void Update()
     {
-        transform.position += linearSpeed * Time.deltaTime;
+        float directionInRadians = direction * Mathf.Deg2Rad;
+        speed += acceleration * Time.deltaTime;
+        Vector3 velocity = new Vector3(Mathf.Cos(directionInRadians) * speed, Mathf.Sin(directionInRadians) * speed);
+        transform.position += velocity * Time.deltaTime;
+
         if (!activeArea.Contains(transform.position))
         {
             poolManager.RecycleGameObject(gameObject.name, gameObject);
@@ -79,10 +92,7 @@ public class Bullet : MonoBehaviour, IPooledObject {
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector3(activeArea.xMin, activeArea.yMin, 0.0f), new Vector3(activeArea.xMax, activeArea.yMin, 0.0f));
-        Gizmos.DrawLine(new Vector3(activeArea.xMax, activeArea.yMin, 0.0f), new Vector3(activeArea.xMax, activeArea.yMax, 0.0f));
-        Gizmos.DrawLine(new Vector3(activeArea.xMax, activeArea.yMax, 0.0f), new Vector3(activeArea.xMin, activeArea.yMax, 0.0f));
-        Gizmos.DrawLine(new Vector3(activeArea.xMin, activeArea.yMax, 0.0f), new Vector3(activeArea.xMin, activeArea.yMin, 0.0f));
+        activeArea.DrawGizmo();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -100,7 +110,9 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
     public void OnSpawn()
     {
-        linearSpeed = Vector3.zero;
+        direction = 270.0f;
+        speed = 10.0f;
+        acceleration = 0.0f;
         collisionLayerMask = 0;
     }
 

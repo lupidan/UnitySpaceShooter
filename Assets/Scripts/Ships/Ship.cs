@@ -63,12 +63,18 @@ public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
     public List<Transform> laserPositions = new List<Transform>();
 
     /// <summary>
-    /// The velocity to set for the shot bullets.
+    /// The offset to add to the direction when shooting.
     /// </summary>
-    public Vector3 bulletVelocity = Vector3.zero;
+    public float bulletDirectionOffset = 270.0f;
+
+    /// <summary>
+    /// The bullet speed.
+    /// </summary>
+    public float bulletSpeed = 10.0f;
 
     /// <summary>
     /// Shoots bullets from the laser positions.
+    /// The bullet direction is determined by the GameObject rotation and the bulletOffset
     /// </summary>
     protected void Shoot()
     {
@@ -80,7 +86,9 @@ public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
             if (bullet != null)
             {
                 bullet.damage = bulletDamage;
-                bullet.linearSpeed = bulletVelocity;
+                bullet.direction = transform.rotation.eulerAngles.z + bulletDirectionOffset;
+                bullet.speed = bulletSpeed;
+                bullet.acceleration = 0.0f;
                 bullet.collisionLayerMask = bulletsLayerMask;
                 bullet.poolManager = poolManager;
             }

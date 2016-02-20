@@ -23,7 +23,6 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// The ParallaxScroll component is responsible of scrolling a texture at a specific speed.

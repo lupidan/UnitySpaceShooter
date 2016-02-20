@@ -23,7 +23,6 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 
 public static class RectExtensions
 {
@@ -53,6 +52,18 @@ public static class RectExtensions
         fixedPosition.x = Mathf.Clamp(fixedPosition.x, rect.xMin, rect.xMax);
         fixedPosition.y = Mathf.Clamp(fixedPosition.y, rect.yMin, rect.yMax);
         return fixedPosition;
+    }
+
+    /// <summary>
+    /// Use Guizmos class to draw the Rect on the world. To use in OnDrawGizmos and OnDrawGizmosSelected
+    /// </summary>
+    /// <param name="rect">The receiver Rect to draw.</param>
+    public static void DrawGizmo(this Rect rect)
+    {
+        Gizmos.DrawLine(new Vector3(rect.xMin, rect.yMin, 0.0f), new Vector3(rect.xMax, rect.yMin, 0.0f));
+        Gizmos.DrawLine(new Vector3(rect.xMax, rect.yMin, 0.0f), new Vector3(rect.xMax, rect.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(rect.xMax, rect.yMax, 0.0f), new Vector3(rect.xMin, rect.yMax, 0.0f));
+        Gizmos.DrawLine(new Vector3(rect.xMin, rect.yMax, 0.0f), new Vector3(rect.xMin, rect.yMin, 0.0f));
     }
 }
 
