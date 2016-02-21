@@ -135,6 +135,8 @@ public class GameControl : MonoBehaviour {
     public void GameOver()
     {
         gameMenu.visibleOption = GameMenu.Option.GameOverMenu;
+        enemySpawnManager.CancelEvents();
+        Time.timeScale = 1.0f;
     }
 
 }
