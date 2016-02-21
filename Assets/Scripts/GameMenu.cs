@@ -52,16 +52,19 @@ public class GameMenu : MonoBehaviour {
         }
     }
 
+    public GameControl gameControl = null;
     public GameObject mainMenu = null;
     public GameObject gameMenu = null;
     public GameObject pauseMenu = null;
     public GameObject iconKeyboardImage = null;
     public GameObject iconMouseImage = null;
+    public Text scoreText = null;
+    public Text livesText = null;
 
     // Use this for initialization
     void Start ()
     {
-        this.visibleOption = Option.MainMenu;
+        this.visibleOption = Option.GameMenu;
 	}
 	
 	// Update is called once per frame
@@ -70,7 +73,8 @@ public class GameMenu : MonoBehaviour {
         switch (visibleOption)
         {
             case Option.GameMenu:
-                //UPDATE UI HERE
+                livesText.text = gameControl.lives.ToString("D2");
+                scoreText.text = gameControl.score.ToString("D8");
                 break;
         }
 

@@ -482,7 +482,7 @@ GameObject:
   - 114: {fileID: 254245839}
   - 114: {fileID: 254245838}
   m_Layer: 5
-  m_Name: LifeText
+  m_Name: LivesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -735,7 +735,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 445399208}
+  spawnManager: {fileID: 445399211}
   playerStartPosition: {fileID: 1103111482}
+  score: 0
+  lives: 0
 --- !u!4 &445399210
 Transform:
   m_ObjectHideFlags: 0
@@ -760,8 +763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 445399208}
-  spawnPointList: []
-  testSpawnPoint: {fileID: 11400000, guid: 56fb5618059b97b4e99d4966c9001d17, type: 2}
+  eventList: {fileID: 11400000, guid: a34bcbebef0de9142a1693e9c31ecb29, type: 2}
 --- !u!1 &488736620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &810463693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1178,11 +1180,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28987edd41befa546a9b3b2cb420b62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameControl: {fileID: 445399209}
   mainMenu: {fileID: 1526773406}
   gameMenu: {fileID: 1347581078}
   pauseMenu: {fileID: 1888738575}
   iconKeyboardImage: {fileID: 2028421300}
   iconMouseImage: {fileID: 2025050028}
+  scoreText: {fileID: 937960026}
+  livesText: {fileID: 254245839}
 --- !u!1 &937960024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1244,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e592e13d52cc9954a90bb6a8c1228f05, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1448,7 +1453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1526773407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1845,7 +1850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1888738576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1946,7 +1951,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1930221526}
   m_Layer: 5
-  m_Name: LifeHUD
+  m_Name: LiveHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

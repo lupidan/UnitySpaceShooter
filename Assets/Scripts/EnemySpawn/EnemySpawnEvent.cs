@@ -21,13 +21,32 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 ///
+
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SpawnPoint", menuName = "Spawn Point")]
-public class EnemySpawnPoint: ScriptableObject {
+/// <summary>
+/// The EnemySpawnEvent defines an event managed by the EnemySpawnManager event queue.
+/// </summary>
+[System.Serializable]
+public class EnemySpawnEvent
+{
+    /// <summary>
+    /// The name of the enemy ship prefab to instantiate.
+    /// </summary>
+    public string enemyPrefabName = "EnemyShip_";
 
-    public Rect spawnArea = new Rect();
-    public Vector3 shipVelocity = new Vector3(0.0f, 0.0f, 0.0f);
-    public Vector3 shipAcceleration = new Vector3(0.0f, 0.0f, 0.0f);
+    /// <summary>
+    /// The starting position of the enemy when spawned.
+    /// </summary>
+    public Vector3 enemyStartPoint = Vector3.zero;
 
+    /// <summary>
+    /// The starting velocity of the enemy when spawned.
+    /// </summary>
+    public Vector3 enemyVelocity = Vector3.zero;
+
+    /// <summary>
+    /// The acceleration of the enemy when spawned.
+    /// </summary>
+    public Vector3 enemyAcceleration = Vector3.zero;
 }

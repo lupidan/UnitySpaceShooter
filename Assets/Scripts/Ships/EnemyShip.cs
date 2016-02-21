@@ -32,6 +32,11 @@ public class EnemyShip : Ship {
     public bool facePlayer = false;
 
     /// <summary>
+    /// The number of points destroying the ship will give the player.
+    /// </summary>
+    public int scoreIncrease = 100;
+
+    /// <summary>
     /// Offset to apply the angle to face the player.
     /// </summary>
     public float facePlayerAngleOffset = 90.0f;
@@ -126,4 +131,17 @@ public class EnemyShip : Ship {
         CancelInvoke("ShootIfInside");
     }
 
+    public override void BulletDidHit(Bullet bullet)
+    {
+        base.BulletDidHit(bullet);
+
+        if (healthPoints <= 0.0f)
+        {
+            GameControl gameControl = FindObjectOfType<GameControl>();
+            if (gameControl != null)
+            {
+                gameControl.score += scoreIncrease;
+            }
+        }
+    }
 }

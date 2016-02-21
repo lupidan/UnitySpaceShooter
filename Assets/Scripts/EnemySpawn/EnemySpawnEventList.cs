@@ -21,67 +21,47 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 ///
-
 using UnityEngine;
-using System.Collections.Generic;
 
-public class GameControl : MonoBehaviour {
+/// <summary>
+/// The EnemySpawnEventList defines a list of EnemySpawnEvent objects that can be edited in an asset to define levels.
+/// </summary>
+[CreateAssetMenu(fileName = "EventList", menuName = "Spawn Event List")]
+public class EnemySpawnEventList : ScriptableObject
+{
+    /// <summary>
+    /// List of entries to execute sequentially.
+    /// </summary>
+    public EnemySpawnEventListEntry[] entries;
+}
+
+/// <summary>
+/// The EnemySpawnEventListEntry represents an entry of a EnemySpawnEventList.
+/// It contains an array of events that should be executed.
+/// An interval to the next event.
+/// And the number of times it should be repeated before continuing to the next event
+/// </summary>
+[System.Serializable]
+public class EnemySpawnEventListEntry
+{
+    /// <summary>
+    /// The name of the entry. Useful to see it in the editor.
+    /// </summary>
+    public string entryName = "";
 
     /// <summary>
-    /// The pool manager to use to Spawn GameObjects
+    /// The time needed to pass for the next event.
     /// </summary>
-    public GameObjectPoolManager poolManager = null;
-
-    public EnemySpawnManager spawnManager = null;
+    public float timeTillNextEvent = 0.75f;
 
     /// <summary>
-    /// The initial position for the player.
+    /// The number of times this event should be repeated
     /// </summary>
-    public Transform playerStartPosition = null;
+    public int numberOfTimes = 0;
 
     /// <summary>
-    /// The player score.
+    /// The array of events to execute by a EnemySpawnManager.
     /// </summary>
-    public int score = 0;
+    public EnemySpawnEvent[] spawnEvents;
 
-    /// <summary>
-    /// The number of lives available.
-    /// </summary>
-    public int lives = 0;
-
-    /// <summary>
-    /// Spawns a player on the screen
-    /// </summary>
-    public void SpawnPlayer()
-    {
-        GameObject playerShipGameObject = poolManager.SpawnPrefabNamed("PlayerShip");
-        playerShipGameObject.transform.position = playerStartPosition.position;
-        PlayerShip playerShip = playerShipGameObject.GetComponent<PlayerShip>();
-        if (playerShip != null)
-        {
-            playerShip.SetInvincibleForTime(1.0f);
-            playerShip.poolManager = poolManager;
-        }
-    }
-
-
-
-    public void StartGame()
-    {
-        lives = 3;
-        score = 0;
-        SpawnPlayer();
-    }
-
-    void Start()
-    {
-        StartGame();
-        spawnManager.StartEvents();
-    }
-
-
-    void Update()
-    {
-
-    }
 }
