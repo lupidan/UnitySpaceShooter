@@ -182,7 +182,8 @@ MonoBehaviour:
   - {fileID: 437784}
   bulletDirectionOffset: 270
   bulletSpeed: 10
-  facePlayer: 0
+  facePlayer: 1
+  scoreIncrease: 100
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 1
   velocity: {x: 0, y: 0, z: 0}
@@ -235,7 +236,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: facePlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128186}

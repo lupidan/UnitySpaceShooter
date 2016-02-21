@@ -12,19 +12,7 @@ MonoBehaviour:
   m_Name: Level01
   m_EditorClassIdentifier: 
   entries:
-  - entryName: EnemyShip_00 from both sides
-    timeTillNextEvent: 0.75
-    numberOfTimes: 3
-    spawnEvents:
-    - enemyPrefabName: EnemyShip_00
-      enemyStartPoint: {x: -9.5, y: 3, z: 0}
-      enemyVelocity: {x: 3, y: 0, z: 0}
-      enemyAcceleration: {x: 0, y: 0, z: 0}
-    - enemyPrefabName: EnemyShip_00
-      enemyStartPoint: {x: 9.5, y: 2, z: 0}
-      enemyVelocity: {x: -3, y: 0, z: 0}
-      enemyAcceleration: {x: 0, y: 0, z: 0}
-  - entryName: EnemyShip_00 from both sides
+  - entryName: EnemyShip_00 from both sides A
     timeTillNextEvent: 0.75
     numberOfTimes: 3
     spawnEvents:
@@ -40,3 +28,79 @@ MonoBehaviour:
     timeTillNextEvent: 5
     numberOfTimes: 1
     spawnEvents: []
+  - entryName: EnemyShip_00 from both sides B
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefabName: EnemyShip_00
+      enemyStartPoint: {x: -9.5, y: 2, z: 0}
+      enemyVelocity: {x: 3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefabName: EnemyShip_00
+      enemyStartPoint: {x: 9.5, y: 3, z: 0}
+      enemyVelocity: {x: -3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from bottom
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: 4, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: -4, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from bottom and arc to center
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: 5, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: -0.5, y: 0, z: 0}
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: -5, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0.5, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_00 from top and back up with horizontal movement
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefabName: EnemyShip_00
+      enemyStartPoint: {x: 5, y: 7, z: 0}
+      enemyVelocity: {x: -2, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+    - enemyPrefabName: EnemyShip_00
+      enemyStartPoint: {x: -5, y: 7, z: 0}
+      enemyVelocity: {x: 2, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from top and back up
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: 4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+    - enemyPrefabName: EnemyShip_01
+      enemyStartPoint: {x: -4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
