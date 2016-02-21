@@ -85,7 +85,9 @@ public class EnemyShip : Ship {
         Vector3 directionVector = playerShip.transform.position - transform.position;
         float facingDirection = Mathf.Atan2(directionVector.y, directionVector.x) * Mathf.Rad2Deg;
         facingDirection += facePlayerAngleOffset;
-        transform.rotation = Quaternion.Euler(0.0f, 0.0f, facingDirection);
+        Quaternion origin = transform.rotation;
+        Quaternion destiny = Quaternion.Euler(0.0f, 0.0f, facingDirection);
+        transform.rotation = Quaternion.Lerp(origin, destiny, 0.25f);
     }
 
     /// <summary>

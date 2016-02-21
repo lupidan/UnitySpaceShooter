@@ -42,6 +42,11 @@ public class GameControl : MonoBehaviour {
     public GameMenu gameMenu = null;
 
     /// <summary>
+    /// The Highscores manager, responsible of keeping the highscores table.
+    /// </summary>
+    public HighscoresManager highscoresManager = null;
+
+    /// <summary>
     /// The initial position for the player.
     /// </summary>
     public Transform playerStartPosition = null;
@@ -140,6 +145,7 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void GameOver()
     {
+        highscoresManager.AddHighscore("LUPI", score);
         gameMenu.VisibleOption = GameMenu.Option.GameOverMenu;
         enemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;

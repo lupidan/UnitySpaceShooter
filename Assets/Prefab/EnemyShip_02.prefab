@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 0}
+  gameControl: {fileID: 0}
   initialHealthPoints: 100
+  healthPoints: 100
   bulletsLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -170,7 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   facePlayerAngleOffset: 90
-  shootRepeatingInterval: 1
+  shootRepeatingInterval: 0.83
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   activeArea:
@@ -229,6 +231,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: scoreIncrease
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootRepeatingInterval
+      value: 0.83
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

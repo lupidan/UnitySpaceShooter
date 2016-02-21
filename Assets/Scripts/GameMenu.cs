@@ -24,6 +24,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 /// <summary>
 /// The class Game Menu manages the Game UI
@@ -64,6 +65,7 @@ public class GameMenu : MonoBehaviour {
             gameOverMenu.SetActive(_visibleOption == Option.GameOverMenu);
 
             UpdateControlIcon();
+            UpdateHighscoresText();
         }
     }
 
@@ -113,6 +115,11 @@ public class GameMenu : MonoBehaviour {
     public Text livesText = null;
 
     /// <summary>
+    /// The highscores text.
+    /// </summary>
+    public Text highscoresText = null;
+
+    /// <summary>
     /// Filled image showing the health of the ship.
     /// </summary>
     public Image playerHealthImage = null;
@@ -160,6 +167,20 @@ public class GameMenu : MonoBehaviour {
         {
             playerHealthImage.fillAmount = 0.0f;
         }
+    }
+
+    /// <summary>
+    /// Updates the text shown for the highscores
+    /// </summary>
+    private void UpdateHighscoresText()
+    {
+        string text = "";
+        List<HighscoresEntry> entries = gameControl.highscoresManager.table.entries;
+        for(int i=0; i < entries.Count; i++)
+        {
+            text += (i + 1) + ". " + entries[i].name + " - " + entries[i].score.ToString("D8") + "\n";
+        }
+        highscoresText.text = text;
     }
 
     /// <summary>
