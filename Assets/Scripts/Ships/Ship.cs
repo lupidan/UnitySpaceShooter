@@ -25,12 +25,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
+public class Ship : MonoBehaviour, IPooledObject, IDamageable {
 
     /// <summary>
     /// The main GameObject pool manager. Used to retrieve bullets, and recycle Ships.
     /// </summary>
     public GameObjectPoolManager poolManager = null;
+
+    /// <summary>
+    /// The Game Control object.
+    /// </summary>
+    public GameControl gameControl = null;
 
     /// <summary>
     /// The number of health points for the ship when spawned.
@@ -40,7 +45,7 @@ public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
     /// <summary>
     /// The ship's health
     /// </summary>
-    protected float healthPoints = 100.0f;
+    public float healthPoints = 100.0f;
 
     /// <summary>
     /// The layer mask for our bullets. This indicates to what layers our bullets will affect.
@@ -115,9 +120,9 @@ public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
         poolManager = null;
     }
 
-    public virtual void BulletDidHit(Bullet bullet)
+    public virtual void DidDamage(float damage)
     {
-        healthPoints -= bullet.damage;
+        healthPoints -= damage;
         if (healthPoints <= 0.0f)
         {
             poolManager.RecycleGameObject(gameObject.name, gameObject);

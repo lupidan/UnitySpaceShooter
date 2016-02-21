@@ -35,6 +35,11 @@ public class EnemySpawnManager : MonoBehaviour {
     public GameObjectPoolManager poolManager = null;
 
     /// <summary>
+    /// The Game Control.
+    /// </summary>
+    public GameControl gameControl = null;
+
+    /// <summary>
     /// The list of events we want to execute.
     /// </summary>
     public EnemySpawnEventList eventList = null;
@@ -67,6 +72,7 @@ public class EnemySpawnManager : MonoBehaviour {
                 enemyShip.acceleration = spawnEvent.enemyAcceleration;
 
                 enemyShip.poolManager = poolManager;
+                enemyShip.gameControl = gameControl;
             }
             return playerShipGameObject;
         }
@@ -78,10 +84,18 @@ public class EnemySpawnManager : MonoBehaviour {
     /// </summary>
     public void StartEvents()
     {
+        CancelEvents();
         eventIndex = 0;
         numberOfRepeats = 0;
-        CancelInvoke("NextEvent");
         Invoke("NextEvent", 0.0f);
+    }
+
+    /// <summary>
+    /// Cancel the events
+    /// </summary>
+    public void CancelEvents()
+    {
+        CancelInvoke("NextEvent");
     }
 
     /// <summary>

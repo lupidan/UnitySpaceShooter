@@ -22,17 +22,15 @@
 /// SOFTWARE.
 ///
 
-using UnityEngine;
-
 /// <summary>
-/// The EnemySpawnEventList defines a list of EnemySpawnEvent objects that can be edited in an asset to define levels.
+/// The IDamageable interface defines something that can be damaged.
 /// </summary>
-[CreateAssetMenu(fileName = "EventList", menuName = "Spawn Event List")]
-public class EnemySpawnEventList : ScriptableObject
-{
-    /// <summary>
-    /// List of entries to execute sequentially.
-    /// </summary>
-    public EnemySpawnEventListEntry[] entries;
-}
+public interface IDamageable {
 
+    /// <summary>
+    /// Method called to apply damage.
+    /// </summary>
+    /// <param name="damage">The amount of applied damage.</param>
+    void DidDamage(float damage);
+
+}

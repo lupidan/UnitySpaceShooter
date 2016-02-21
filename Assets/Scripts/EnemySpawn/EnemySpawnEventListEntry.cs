@@ -22,17 +22,34 @@
 /// SOFTWARE.
 ///
 
-using UnityEngine;
-
 /// <summary>
-/// The EnemySpawnEventList defines a list of EnemySpawnEvent objects that can be edited in an asset to define levels.
+/// The EnemySpawnEventListEntry represents an entry of a EnemySpawnEventList.
+/// It contains an array of events that should be executed.
+/// An interval to the next event.
+/// And the number of times it should be repeated before continuing to the next event
 /// </summary>
-[CreateAssetMenu(fileName = "EventList", menuName = "Spawn Event List")]
-public class EnemySpawnEventList : ScriptableObject
+[System.Serializable]
+public class EnemySpawnEventListEntry
 {
     /// <summary>
-    /// List of entries to execute sequentially.
+    /// The name of the entry. Useful to see it in the editor.
     /// </summary>
-    public EnemySpawnEventListEntry[] entries;
+    public string entryName = "";
+
+    /// <summary>
+    /// The time needed to pass for the next event.
+    /// </summary>
+    public float timeTillNextEvent = 0.75f;
+
+    /// <summary>
+    /// The number of times this event should be repeated
+    /// </summary>
+    public int numberOfTimes = 0;
+
+    /// <summary>
+    /// The array of events to execute by a EnemySpawnManager.
+    /// </summary>
+    public EnemySpawnEvent[] spawnEvents;
+
 }
 

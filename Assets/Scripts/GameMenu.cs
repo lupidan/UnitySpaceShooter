@@ -32,7 +32,8 @@ public class GameMenu : MonoBehaviour {
     {
         MainMenu,
         GameMenu,
-        PauseMenu
+        PauseMenu,
+        GameOverMenu
     }
 
     private Option _visibleOption = Option.MainMenu;
@@ -46,8 +47,10 @@ public class GameMenu : MonoBehaviour {
         {
             _visibleOption = value;
             mainMenu.SetActive(_visibleOption == Option.MainMenu);
-            gameMenu.SetActive(_visibleOption == Option.GameMenu);
+            gameMenu.SetActive(_visibleOption == Option.GameMenu || _visibleOption == Option.PauseMenu);
             pauseMenu.SetActive(_visibleOption == Option.PauseMenu);
+            gameOverMenu.SetActive(_visibleOption == Option.GameOverMenu);
+
             UpdateControlIcon();
         }
     }
@@ -56,33 +59,61 @@ public class GameMenu : MonoBehaviour {
     public GameObject mainMenu = null;
     public GameObject gameMenu = null;
     public GameObject pauseMenu = null;
+    public GameObject gameOverMenu = null;
     public GameObject iconKeyboardImage = null;
     public GameObject iconMouseImage = null;
     public Text scoreText = null;
     public Text livesText = null;
+    public Image playerHealthImage = null;
 
     // Use this for initialization
     void Start ()
     {
-        this.visibleOption = Option.GameMenu;
-	}
+        this.visibleOption = Option.MainMenu;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-        switch (visibleOption)
+
+        if (gameMenu.activeSelf)
         {
-            case Option.GameMenu:
-                livesText.text = gameControl.lives.ToString("D2");
-                scoreText.text = gameControl.score.ToString("D8");
-                break;
+            UpdateGameMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (visibleOption == Option.GameMenu)
+            {
+                gameControl.PauseGame();
+                visibleOption = Option.PauseMenu;
+            }
+            else
+            {
+                gameControl.UnpauseGame();
+                visibleOption = Option.GameMenu;
+            }
         }
 
 	}
 
+    private void UpdateGameMenu()
+    {
+        livesText.text = gameControl.lives.ToString("D2");
+        scoreText.text = gameControl.score.ToString("D8");
+        if (gameControl.playerShip != null)
+        {
+            playerHealthImage.fillAmount = gameControl.playerShip.healthPoints / gameControl.playerShip.initialHealthPoints;
+        }
+        else
+        {
+            playerHealthImage.fillAmount = 0.0f;
+        }
+    }
+
     public void ButtonSelectedStartGame()
     {
-        Debug.Log("START GAME");
+        gameControl.StartGame();
+        visibleOption = Option.GameMenu;
     }
 
     public void ButtonSelectedChangeControlMode()
@@ -93,17 +124,19 @@ public class GameMenu : MonoBehaviour {
 
     public void ButtonSelectedExitGame()
     {
-        Debug.Log("EXIT GAME");
+        Application.Quit();
     }
 
     public void ButtonSelectedContinueGame()
     {
-        Debug.Log("CONTINUE GAME");
+        gameControl.UnpauseGame();
+        visibleOption = Option.GameMenu;
     }
 
     public void ButtonSelectedEndGame()
     {
-        Debug.Log("END GAME");
+        gameControl.EndGame();
+        visibleOption = Option.MainMenu;
     }
 
     private void UpdateControlIcon()

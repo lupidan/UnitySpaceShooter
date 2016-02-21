@@ -23,16 +23,23 @@
 ///
 
 using UnityEngine;
-using System.Collections.Generic;
 
 public class GameControl : MonoBehaviour {
 
     /// <summary>
-    /// The pool manager to use to Spawn GameObjects
+    /// The pool manager to use to Spawn GameObjects.
     /// </summary>
     public GameObjectPoolManager poolManager = null;
 
-    public EnemySpawnManager spawnManager = null;
+    /// <summary>
+    /// The main game enemy spawn manager. Responsible of spawing all the enemies.
+    /// </summary>
+    public EnemySpawnManager enemySpawnManager = null;
+
+    /// <summary>
+    /// The Game Menu.
+    /// </summary>
+    public GameMenu gameMenu = null;
 
     /// <summary>
     /// The initial position for the player.
@@ -49,6 +56,8 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public int lives = 0;
 
+    public PlayerShip playerShip { get; private set; }
+
     /// <summary>
     /// Spawns a player on the screen
     /// </summary>
@@ -61,27 +70,61 @@ public class GameControl : MonoBehaviour {
         {
             playerShip.SetInvincibleForTime(1.0f);
             playerShip.poolManager = poolManager;
+            playerShip.gameControl = this;
+
+            this.playerShip = playerShip;
         }
     }
 
+    /// <summary>
+    /// Spawns a player after a number of seconds.
+    /// </summary>
+    /// <param name="numberOfSeconds">The number of seconds to wait to spawn a player.</param>
+    public void SpawnPlayerInTime(float numberOfSeconds)
+    {
+        CancelInvoke("SpawnPlayer");
+        Invoke("SpawnPlayer", numberOfSeconds);
+    }
 
-
+    /// <summary>
+    /// Starts a game
+    /// </summary>
     public void StartGame()
     {
-        lives = 3;
+        lives = 1;
         score = 0;
+        poolManager.RecycleAllSpawnedObjects();
         SpawnPlayer();
+        enemySpawnManager.StartEvents();
+        Time.timeScale = 1.0f;
     }
 
-    void Start()
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
+    public void PauseGame()
     {
-        StartGame();
-        spawnManager.StartEvents();
+        Time.timeScale = 0.0f;
     }
 
-
-    void Update()
+    /// <summary>
+    /// Unpauses the game
+    /// </summary>
+    public void UnpauseGame()
     {
-
+        Time.timeScale = 1.0f;
     }
+
+    public void EndGame()
+    {
+        poolManager.RecycleAllSpawnedObjects();
+        enemySpawnManager.CancelEvents();
+        Time.timeScale = 1.0f;
+    }
+
+    public void GameOver()
+    {
+        gameMenu.visibleOption = GameMenu.Option.GameOverMenu;
+    }
+
 }

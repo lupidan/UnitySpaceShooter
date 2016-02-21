@@ -46,7 +46,7 @@ MonoBehaviour:
     spawnEvents: []
   - entryName: EnemyShip_01 from bottom
     timeTillNextEvent: 0.75
-    numberOfTimes: 1
+    numberOfTimes: 10
     spawnEvents:
     - enemyPrefabName: EnemyShip_01
       enemyStartPoint: {x: 4, y: -7, z: 0}
@@ -104,3 +104,7 @@ MonoBehaviour:
       enemyStartPoint: {x: -4, y: 7, z: 0}
       enemyVelocity: {x: 0, y: -10, z: 0}
       enemyAcceleration: {x: 0, y: 6, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []

@@ -140,15 +140,17 @@ public class PlayerShip : Ship
     protected override void Update()
     {
         base.Update();
-        if (GamePlayerPrefs.IsMouseControlEnabled)
+        if (Time.deltaTime > 0.0)
         {
-            UpdateMouseControls();
+            if (GamePlayerPrefs.IsMouseControlEnabled)
+            {
+                UpdateMouseControls();
+            }
+            else
+            {
+                UpdateKeyboardControls();
+            }
         }
-        else
-        {
-            UpdateKeyboardControls();
-        }
-        
     }
 
     void OnDrawGizmosSelected()
@@ -157,12 +159,24 @@ public class PlayerShip : Ship
         gameArea.DrawGizmo();
     }
 
-    public override void BulletDidHit(Bullet bullet)
+    public override void DidDamage(float damage)
     {
-        base.BulletDidHit(bullet);
+        base.DidDamage(damage);
         if (healthPoints > 0.0f)
         {
-            SetInvincibleForTime(1.0f);
+            SetInvincibleForTime(0.5f);
+        }
+        else
+        {
+            if (gameControl.lives <= 0)
+            {
+                gameControl.GameOver();
+            }
+            else
+            {
+                gameControl.lives -= 1;
+                gameControl.SpawnPlayerInTime(2.0f);
+            }
         }
     }
 

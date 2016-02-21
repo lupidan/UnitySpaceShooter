@@ -129,7 +129,11 @@ MonoBehaviour:
   bulletDirectionOffset: 270
   bulletSpeed: 10
   facePlayer: 1
-  scoreIncrease: 100
+  scoreIncrease: 300
+  shipDamage: 50
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 1
   velocity: {x: 0, y: 0, z: 0}
@@ -190,6 +194,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: initialHealthPoints
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: collisionLayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: scoreIncrease
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

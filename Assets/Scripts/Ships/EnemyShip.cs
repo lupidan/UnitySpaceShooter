@@ -37,6 +37,16 @@ public class EnemyShip : Ship {
     public int scoreIncrease = 100;
 
     /// <summary>
+    /// The amount of damage the ship can inflict
+    /// </summary>
+    public float shipDamage = 50.0f;
+
+    /// <summary>
+    /// The collision mask this ship can inflict damage to
+    /// </summary>
+    public LayerMask collisionLayerMask = 0;
+
+    /// <summary>
     /// Offset to apply the angle to face the player.
     /// </summary>
     public float facePlayerAngleOffset = 90.0f;
@@ -93,21 +103,24 @@ public class EnemyShip : Ship {
     {
         base.Update();
 
-        velocity += acceleration * Time.deltaTime;
-        transform.position += velocity * Time.deltaTime;
-
-        if (facePlayer)
+        if (Time.deltaTime > 0.0f)
         {
-            PlayerShip playerShip = FindObjectOfType<PlayerShip>();
-            if (playerShip != null)
+            velocity += acceleration * Time.deltaTime;
+            transform.position += velocity * Time.deltaTime;
+
+            if (facePlayer)
             {
-                FaceToPlayerShip(playerShip);
+                PlayerShip playerShip = FindObjectOfType<PlayerShip>();
+                if (playerShip != null)
+                {
+                    FaceToPlayerShip(playerShip);
+                }
             }
-        }
 
-        if (!activeArea.Contains(transform.position))
-        {
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
+            if (!activeArea.Contains(transform.position))
+            {
+                poolManager.RecycleGameObject(gameObject.name, gameObject);
+            }
         }
     }
 
@@ -117,6 +130,19 @@ public class EnemyShip : Ship {
         activeArea.DrawGizmo();
         Gizmos.color = Color.magenta;
         shootingArea.DrawGizmo();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
+        {
+            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
+            foreach (IDamageable damageable in damageables)
+            {
+                damageable.DidDamage(this.shipDamage);
+            }
+            poolManager.RecycleGameObject(gameObject.name, gameObject);
+        }
     }
 
     public override void OnSpawn()
@@ -131,17 +157,13 @@ public class EnemyShip : Ship {
         CancelInvoke("ShootIfInside");
     }
 
-    public override void BulletDidHit(Bullet bullet)
+    public override void DidDamage(float damage)
     {
-        base.BulletDidHit(bullet);
+        base.DidDamage(damage);
 
         if (healthPoints <= 0.0f)
         {
-            GameControl gameControl = FindObjectOfType<GameControl>();
-            if (gameControl != null)
-            {
-                gameControl.score += scoreIncrease;
-            }
+            gameControl.score += scoreIncrease;
         }
     }
 }

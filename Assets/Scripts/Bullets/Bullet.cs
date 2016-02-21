@@ -25,21 +25,14 @@
 using UnityEngine;
 
 /// <summary>
-/// The IBulletHittable defines an interface for something that can be hittable by a bullet
-/// </summary>
-public interface IBulletHittable
-{
-    /// <summary>
-    /// Method called when a Bullet did hit another IBulletHittable object.
-    /// </summary>
-    /// <param name="bullet">The bullet that hit the object.</param>
-    void BulletDidHit(Bullet bullet);
-}
-
-/// <summary>
 /// The Bullet class defines a bullet being shot with a certain linear speed.
 /// </summary>
 public class Bullet : MonoBehaviour, IPooledObject {
+
+    /// <summary>
+    /// The pool manager this game object should return once it's done.
+    /// </summary>
+    public GameObjectPoolManager poolManager;
 
     /// <summary>
     /// The area in where this bullet can live. Getting outside this area will return the bullet to the pool.
@@ -71,11 +64,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
     /// </summary>
     public LayerMask collisionLayerMask;
 
-    /// <summary>
-    /// The pool manager this game object should return once it's done
-    /// </summary>
-    public GameObjectPoolManager poolManager;
-
     public virtual void Update()
     {
         float directionInRadians = direction * Mathf.Deg2Rad;
@@ -99,10 +87,10 @@ public class Bullet : MonoBehaviour, IPooledObject {
     {
         if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
         {
-            IBulletHittable[] bulletHittables = other.gameObject.GetComponents<IBulletHittable>();
-            foreach (IBulletHittable bulletHittable in bulletHittables)
+            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
+            foreach (IDamageable damageable in damageables)
             {
-                bulletHittable.BulletDidHit(this);
+                damageable.DidDamage(damage);
             }
             poolManager.RecycleGameObject(gameObject.name, gameObject);
         }
@@ -110,9 +98,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
     public void OnSpawn()
     {
-        direction = 270.0f;
-        speed = 10.0f;
-        acceleration = 0.0f;
         collisionLayerMask = 0;
     }
 
