@@ -886,7 +886,7 @@ MonoBehaviour:
   gameMenu: {fileID: 810463697}
   highscoresManager: {fileID: 1305067736}
   playerStartPosition: {fileID: 1103111482}
-  initialLives: 1
+  initialLives: 2
   score: 0
   lives: 0
 --- !u!4 &445399210
