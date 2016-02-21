@@ -23,11 +23,16 @@
 ///
 
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// The class Game Menu manages the Game UI
+/// </summary>
 public class GameMenu : MonoBehaviour {
 
+    /// <summary>
+    /// Enum type for the available menu options
+    /// </summary>
     public enum Option
     {
         MainMenu,
@@ -36,8 +41,15 @@ public class GameMenu : MonoBehaviour {
         GameOverMenu
     }
 
+    /// <summary>
+    /// Private visible option var
+    /// </summary>
     private Option _visibleOption = Option.MainMenu;
-    public Option visibleOption
+
+    /// <summary>
+    /// The menu Visible Option
+    /// </summary>
+    public Option VisibleOption
     {
         get
         {
@@ -55,24 +67,61 @@ public class GameMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// The Game Control.
+    /// </summary>
     public GameControl gameControl = null;
+
+    /// <summary>
+    /// GameObject containing the main menu.
+    /// </summary>
     public GameObject mainMenu = null;
+
+    /// <summary>
+    /// GameObject containing the game UI.
+    /// </summary>
     public GameObject gameMenu = null;
+
+    /// <summary>
+    /// GameObject containing the pause menu.
+    /// </summary>
     public GameObject pauseMenu = null;
+
+    /// <summary>
+    /// GameObject containing the game over menu.
+    /// </summary>
     public GameObject gameOverMenu = null;
+
+    /// <summary>
+    /// GameObject containing the keyboard image icon.
+    /// </summary>
     public GameObject iconKeyboardImage = null;
+
+    /// <summary>
+    /// GameObject containing the mouse image icon.
+    /// </summary>
     public GameObject iconMouseImage = null;
+
+    /// <summary>
+    /// Text showing the score.
+    /// </summary>
     public Text scoreText = null;
+
+    /// <summary>
+    /// Text showing the number of lives.
+    /// </summary>
     public Text livesText = null;
+
+    /// <summary>
+    /// Filled image showing the health of the ship.
+    /// </summary>
     public Image playerHealthImage = null;
 
-    // Use this for initialization
     void Start ()
     {
-        this.visibleOption = Option.MainMenu;
+        this.VisibleOption = Option.MainMenu;
     }
 	
-	// Update is called once per frame
 	void Update () {
 
         if (gameMenu.activeSelf)
@@ -82,20 +131,23 @@ public class GameMenu : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (visibleOption == Option.GameMenu)
+            if (VisibleOption == Option.GameMenu)
             {
                 gameControl.PauseGame();
-                visibleOption = Option.PauseMenu;
+                VisibleOption = Option.PauseMenu;
             }
             else
             {
                 gameControl.UnpauseGame();
-                visibleOption = Option.GameMenu;
+                VisibleOption = Option.GameMenu;
             }
         }
 
 	}
 
+    /// <summary>
+    /// Updates the game menu UI.
+    /// </summary>
     private void UpdateGameMenu()
     {
         livesText.text = gameControl.lives.ToString("D2");
@@ -110,35 +162,53 @@ public class GameMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// The start game was selected.
+    /// </summary>
     public void ButtonSelectedStartGame()
     {
         gameControl.StartGame();
-        visibleOption = Option.GameMenu;
+        VisibleOption = Option.GameMenu;
     }
 
+    /// <summary>
+    /// The control mode switch button was selected.
+    /// </summary>
     public void ButtonSelectedChangeControlMode()
     {
         GamePlayerPrefs.IsMouseControlEnabled = !GamePlayerPrefs.IsMouseControlEnabled;
         UpdateControlIcon();
     }
 
+    /// <summary>
+    /// The exit button was selected.
+    /// </summary>
     public void ButtonSelectedExitGame()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// The continue game button was selected.
+    /// </summary>
     public void ButtonSelectedContinueGame()
     {
         gameControl.UnpauseGame();
-        visibleOption = Option.GameMenu;
+        VisibleOption = Option.GameMenu;
     }
 
+    /// <summary>
+    /// The End Game button was selected.
+    /// </summary>
     public void ButtonSelectedEndGame()
     {
         gameControl.EndGame();
-        visibleOption = Option.MainMenu;
+        VisibleOption = Option.MainMenu;
     }
 
+    /// <summary>
+    /// Updates the control icon to show the selected preference.
+    /// </summary>
     private void UpdateControlIcon()
     {
         bool isMouseControlEnabled = GamePlayerPrefs.IsMouseControlEnabled;

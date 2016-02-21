@@ -47,7 +47,7 @@ public class GameControl : MonoBehaviour {
     public Transform playerStartPosition = null;
 
     /// <summary>
-    /// The initial number of lives
+    /// The initial number of lives.
     /// </summary>
     public int initialLives = 0;
 
@@ -69,7 +69,7 @@ public class GameControl : MonoBehaviour {
     public PlayerShip playerShip { get; private set; }
 
     /// <summary>
-    /// Spawns a player on the screen
+    /// Spawns a player on the screen.
     /// </summary>
     public void SpawnPlayer()
     {
@@ -97,7 +97,7 @@ public class GameControl : MonoBehaviour {
     }
 
     /// <summary>
-    /// Starts a game
+    /// Starts a game.
     /// </summary>
     public void StartGame()
     {
@@ -110,7 +110,7 @@ public class GameControl : MonoBehaviour {
     }
 
     /// <summary>
-    /// Pauses the game
+    /// Pauses the game.
     /// </summary>
     public void PauseGame()
     {
@@ -118,13 +118,16 @@ public class GameControl : MonoBehaviour {
     }
 
     /// <summary>
-    /// Unpauses the game
+    /// Unpauses the game.
     /// </summary>
     public void UnpauseGame()
     {
         Time.timeScale = 1.0f;
     }
 
+    /// <summary>
+    /// Ends the game.
+    /// </summary>
     public void EndGame()
     {
         poolManager.RecycleAllSpawnedObjects();
@@ -132,9 +135,12 @@ public class GameControl : MonoBehaviour {
         Time.timeScale = 1.0f;
     }
 
+    /// <summary>
+    /// Executes Game Over.
+    /// </summary>
     public void GameOver()
     {
-        gameMenu.visibleOption = GameMenu.Option.GameOverMenu;
+        gameMenu.VisibleOption = GameMenu.Option.GameOverMenu;
         enemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;
     }
