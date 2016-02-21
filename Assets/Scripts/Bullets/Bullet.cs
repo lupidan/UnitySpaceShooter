@@ -119,5 +119,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
     public void OnDespawn()
     {
         collisionLayerMask = 0;
+        poolManager = null;
     }
 }

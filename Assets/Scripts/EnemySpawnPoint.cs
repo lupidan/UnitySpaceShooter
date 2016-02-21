@@ -21,64 +21,13 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 ///
-
 using UnityEngine;
 
-public class GameControl : MonoBehaviour {
+[CreateAssetMenu(fileName = "SpawnPoint", menuName = "Spawn Point")]
+public class EnemySpawnPoint: ScriptableObject {
 
-    /// <summary>
-    /// The pool manager to use to Spawn GameObjects
-    /// </summary>
-    public GameObjectPoolManager poolManager = null;
-
-    /// <summary>
-    /// The initial position for the player.
-    /// </summary>
-    public Transform playerStartPosition = null;
-
-   
-
-    private int _lives = 0;
-    public int Lives
-    {
-        set
-        {
-            _lives = value;
-        }
-        get
-        {
-            return _lives;
-        }
-    }
-
-    /// <summary>
-    /// Spawns a player on the screen
-    /// </summary>
-    public void SpawnPlayer()
-    {
-        GameObject playerShipGameObject = poolManager.SpawnPrefabNamed("PlayerShip");
-        playerShipGameObject.transform.position = playerStartPosition.position;
-        PlayerShip playerShip = playerShipGameObject.GetComponent<PlayerShip>();
-        if (playerShip != null)
-        {
-            playerShip.SetInvincibleForTime(1.0f);
-            playerShip.poolManager = poolManager;
-        }
-    }
-
-    void Start ()
-    {
-        StartGame();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-    public void StartGame()
-    {
-        SpawnPlayer();
-    }
+    public Rect spawnArea = new Rect();
+    public Vector3 shipVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+    public Vector3 shipAcceleration = new Vector3(0.0f, 0.0f, 0.0f);
 
 }

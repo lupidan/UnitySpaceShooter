@@ -112,13 +112,13 @@ public class Ship : MonoBehaviour, IPooledObject, IBulletHittable {
 
     public virtual void OnDespawn()
     {
-        
+        poolManager = null;
     }
 
     public virtual void BulletDidHit(Bullet bullet)
     {
         healthPoints -= bullet.damage;
-        if (healthPoints < 0.0f)
+        if (healthPoints <= 0.0f)
         {
             poolManager.RecycleGameObject(gameObject.name, gameObject);
         }
