@@ -885,6 +885,7 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 1055836720}
   gameMenu: {fileID: 810463697}
   playerStartPosition: {fileID: 1103111482}
+  initialLives: 3
   score: 0
   lives: 0
 --- !u!4 &445399210

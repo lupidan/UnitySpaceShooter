@@ -47,15 +47,25 @@ public class GameControl : MonoBehaviour {
     public Transform playerStartPosition = null;
 
     /// <summary>
+    /// The initial number of lives
+    /// </summary>
+    public int initialLives = 0;
+
+    /// <summary>
     /// The player score.
     /// </summary>
+    [HideInInspector]
     public int score = 0;
 
     /// <summary>
     /// The number of lives available.
     /// </summary>
+    [HideInInspector]
     public int lives = 0;
 
+    /// <summary>
+    /// The player ship for this game.
+    /// </summary>
     public PlayerShip playerShip { get; private set; }
 
     /// <summary>
@@ -91,7 +101,7 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void StartGame()
     {
-        lives = 1;
+        lives = initialLives;
         score = 0;
         poolManager.RecycleAllSpawnedObjects();
         SpawnPlayer();
