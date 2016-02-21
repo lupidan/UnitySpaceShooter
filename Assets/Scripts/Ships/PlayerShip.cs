@@ -159,6 +159,16 @@ public class PlayerShip : Ship
         gameArea.DrawGizmo();
     }
 
+    public override void OnSpawn()
+    {
+        base.OnSpawn();
+
+        Vector3 minPosition = Camera.main.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, 0.0f));
+        Vector3 maxPosition = Camera.main.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, 0.0f));
+        Vector3 sizeVector = maxPosition - minPosition;
+        gameArea = new Rect(minPosition.x, minPosition.y, sizeVector.x, sizeVector.y);
+    }
+
     public override void DidDamage(float damage)
     {
         base.DidDamage(damage);
