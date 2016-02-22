@@ -44,7 +44,7 @@ public class DamageInflictor: MonoBehaviour, IPooledObject
 {
 
     /// <summary>
-    /// The pool manager this game object should return once it's done.
+    /// The pool manager this game object should return once it has collided and applied damage.
     /// </summary>
     public GameObjectPoolManager poolManager;
 
