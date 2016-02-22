@@ -41,11 +41,6 @@ public class GameObjectPoolManager : MonoBehaviour {
     public List<GameObject> prefabs = new List<GameObject>();
 
     /// <summary>
-    /// A internal list of spawned objects to keep track of.
-    /// </summary>
-    private List<GameObject> spawnedObjects = new List<GameObject>();
-
-    /// <summary>
     /// Initializes the GameObject instances pool for all the specified prefabs.
     /// </summary>
     private void InitializeGameObjectPools()
@@ -69,7 +64,6 @@ public class GameObjectPoolManager : MonoBehaviour {
         if (gameObjectPools.TryGetValue(name, out prefabPool))
         {
             spawnedObject = prefabPool.SpawnObject();
-            spawnedObjects.Add(spawnedObject);
         }
         else
         {
@@ -95,23 +89,16 @@ public class GameObjectPoolManager : MonoBehaviour {
             Debug.LogError("Error: Prefab pool for " + name + " does not exist. Destroying GameObject");
             Destroy(gameObject);
         }
-
-        int indexOfGameObject = spawnedObjects.IndexOf(gameObject);
-        if (indexOfGameObject >= 0)
-        {
-            spawnedObjects.RemoveAt(indexOfGameObject);
-        }
     }
 
     /// <summary>
-    /// Recycle all spawend objects on screen.
+    /// Recycle all spawned objects on screen.
     /// </summary>
     public void RecycleAllSpawnedObjects()
     {
-        GameObject[] objectsToRecycle = spawnedObjects.ToArray();
-        foreach (GameObject objectToRecycle in objectsToRecycle)
+        foreach (GameObjectPool gameObjectPool in gameObjectPools.Values)
         {
-            RecycleGameObject(objectToRecycle.name, objectToRecycle);
+            gameObjectPool.RecycleAllObjects();
         }
     }
 

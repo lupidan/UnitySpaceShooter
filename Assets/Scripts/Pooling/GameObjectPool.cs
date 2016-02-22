@@ -56,6 +56,11 @@ public class GameObjectPool {
     private Queue<GameObject> pooledObjects;
 
     /// <summary>
+    /// The list of spawned objects
+    /// </summary>
+    private List<GameObject> spawnedObjects;
+
+    /// <summary>
     /// The Prefab GameObject that we want this pool to work
     /// </summary>
     public GameObject pooledPrefab { get; private set; }
@@ -73,6 +78,7 @@ public class GameObjectPool {
     public GameObjectPool(GameObject gameObject, int initialSize = 0)
     {
         pooledObjects = new Queue<GameObject>();
+        spawnedObjects = new List<GameObject>();
         pooledPrefab = gameObject;
         if (initialSize > 0)
         {
@@ -96,6 +102,8 @@ public class GameObjectPool {
         gameObject.name = pooledPrefab.name;
         gameObject.transform.parent = null;
 
+        spawnedObjects.Add(gameObject);
+
         IPooledObject[] pooledObjectComponents = gameObject.GetComponents<IPooledObject>();
         foreach (IPooledObject pooledObjectComponent in pooledObjectComponents)
         {
@@ -113,10 +121,24 @@ public class GameObjectPool {
         pooledObjects.Enqueue(gameObject);
         gameObject.SetActive(false);
 
+        spawnedObjects.Remove(gameObject);
+
         IPooledObject[] pooledObjectComponents = gameObject.GetComponents<IPooledObject>();
         foreach (IPooledObject pooledObjectComponent in pooledObjectComponents)
         {
             pooledObjectComponent.OnDespawn();
+        }
+    }
+
+    /// <summary>
+    /// Recycle all the spawned objects.
+    /// </summary>
+    public void RecycleAllObjects()
+    {
+        GameObject[] objectsToRecycle = spawnedObjects.ToArray();
+        foreach (GameObject objectToRecycle in objectsToRecycle)
+        {
+            RecycleObject(objectToRecycle);
         }
     }
 
