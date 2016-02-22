@@ -12,6 +12,7 @@ GameObject:
   - 95: {fileID: 9508370}
   - 58: {fileID: 5857698}
   - 50: {fileID: 5026874}
+  - 114: {fileID: 11426630}
   - 114: {fileID: 11432068}
   m_Layer: 0
   m_Name: RoundBulletGreen
@@ -80,6 +81,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11426630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e481f42796ed094bb452b215f32b8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
+  damage: 20
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!114 &11432068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,18 +108,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b72fa80c5739984daf74acacc4d4fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
   activeArea:
     serializedVersion: 2
     x: -10
     y: -10
     width: 20
     height: 20
-  damage: 20
-  linearSpeed: {x: 0, y: 0, z: 0}
-  collisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  poolManager: {fileID: 0}
+  direction: 270
+  speed: 10
+  acceleration: 0
 --- !u!212 &21235350
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -147,6 +162,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: collisionLayerMask.m_Bits
+      value: 1280
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

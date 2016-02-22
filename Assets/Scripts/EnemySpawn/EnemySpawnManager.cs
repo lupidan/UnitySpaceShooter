@@ -74,6 +74,13 @@ public class EnemySpawnManager : MonoBehaviour {
                 enemyShip.poolManager = poolManager;
                 enemyShip.gameControl = gameControl;
             }
+
+            DamageInflictor damageInflictor = playerShipGameObject.GetComponent<DamageInflictor>();
+            if (damageInflictor != null)
+            {
+                damageInflictor.poolManager = poolManager;
+            }
+
             return playerShipGameObject;
         }
         return null;

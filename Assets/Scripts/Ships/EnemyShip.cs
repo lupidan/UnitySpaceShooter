@@ -37,16 +37,6 @@ public class EnemyShip : Ship {
     public int scoreIncrease = 100;
 
     /// <summary>
-    /// The amount of damage the ship can inflict
-    /// </summary>
-    public float shipDamage = 50.0f;
-
-    /// <summary>
-    /// The collision mask this ship can inflict damage to
-    /// </summary>
-    public LayerMask collisionLayerMask = 0;
-
-    /// <summary>
     /// Offset to apply the angle to face the player.
     /// </summary>
     public float facePlayerAngleOffset = 90.0f;
@@ -134,19 +124,6 @@ public class EnemyShip : Ship {
         shootingArea.DrawGizmo();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
-        {
-            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
-            foreach (IDamageable damageable in damageables)
-            {
-                damageable.DidDamage(this.shipDamage);
-            }
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
-        }
-    }
-
     public override void OnSpawn()
     {
         base.OnSpawn();
@@ -157,6 +134,7 @@ public class EnemyShip : Ship {
     {
         base.OnDespawn();
         CancelInvoke("ShootIfInside");
+        poolManager = null;
     }
 
     public override void DidDamage(float damage)

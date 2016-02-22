@@ -26,6 +26,7 @@ GameObject:
   - 212: {fileID: 21232782}
   - 60: {fileID: 6072354}
   - 50: {fileID: 5043926}
+  - 114: {fileID: 11430376}
   - 114: {fileID: 11488388}
   m_Layer: 10
   m_Name: EnemyShip_03
@@ -158,6 +159,22 @@ PolygonCollider2D:
       - {x: 0.41, y: -0.22999999}
       - {x: 0.41, y: 0.31}
       - {x: 0.28, y: 0.42}
+--- !u!114 &11430376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e481f42796ed094bb452b215f32b8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
+  damage: 50
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &11488388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,10 +203,6 @@ MonoBehaviour:
   bulletSpeed: 10
   facePlayer: 1
   scoreIncrease: 1000
-  shipDamage: 50
-  collisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 0.88
   velocity: {x: 0, y: 0, z: 0}
@@ -258,6 +271,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: shootRepeatingInterval
       value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

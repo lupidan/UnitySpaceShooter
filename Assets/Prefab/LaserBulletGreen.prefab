@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21206902}
   - 61: {fileID: 6108576}
   - 50: {fileID: 5027238}
+  - 114: {fileID: 11447232}
   - 114: {fileID: 11479524}
   m_Layer: 0
   m_Name: LaserBulletGreen
@@ -62,6 +63,22 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.13, y: 0.37}
+--- !u!114 &11447232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e481f42796ed094bb452b215f32b8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
+  damage: 20
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!114 &11479524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,18 +90,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85825d56b19bd84bb229865e1504066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
   activeArea:
     serializedVersion: 2
     x: -10
     y: -10
     width: 20
     height: 20
-  damage: 20
-  linearSpeed: {x: 0, y: 0, z: 0}
-  collisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  poolManager: {fileID: 0}
+  direction: 270
+  speed: 10
+  acceleration: 0
   angleOffset: 90
 --- !u!212 &21206902
 SpriteRenderer:
@@ -134,6 +149,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: collisionLayerMask.m_Bits
+      value: 1280
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

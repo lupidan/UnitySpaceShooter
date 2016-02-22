@@ -40,11 +40,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
     public Rect activeArea = new Rect();
 
     /// <summary>
-    /// The amount of damage the bullet can do.
-    /// </summary>
-    public float damage = 1.0f;
-
-    /// <summary>
     /// The direction of the bullet in degrees.
     /// </summary>
     public float direction = 270.0f;
@@ -58,11 +53,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
     /// The acceleration of the bullet.
     /// </summary>
     public float acceleration = 0.0f;
-
-    /// <summary>
-    /// The mask to check for collisions
-    /// </summary>
-    public LayerMask collisionLayerMask;
 
     public virtual void Update()
     {
@@ -83,27 +73,13 @@ public class Bullet : MonoBehaviour, IPooledObject {
         activeArea.DrawGizmo();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
-        {
-            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
-            foreach (IDamageable damageable in damageables)
-            {
-                damageable.DidDamage(damage);
-            }
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
-        }
-    }
-
     public void OnSpawn()
     {
-        collisionLayerMask = 0;
+        //Nothing here for now
     }
 
     public void OnDespawn()
     {
-        collisionLayerMask = 0;
         poolManager = null;
     }
 }

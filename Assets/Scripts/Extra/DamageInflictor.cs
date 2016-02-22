@@ -22,6 +22,8 @@
 /// SOFTWARE.
 ///
 
+using UnityEngine;
+
 /// <summary>
 /// The IDamageable interface defines something that can be damaged.
 /// </summary>
@@ -33,4 +35,50 @@ public interface IDamageable {
     /// <param name="damage">The amount of applied damage.</param>
     void DidDamage(float damage);
 
+}
+
+/// <summary>
+/// Damage inflictor represents a GameObject component that reacts to other objects when colliding and applies damage to them if they are damageable
+/// </summary>
+public class DamageInflictor: MonoBehaviour, IPooledObject
+{
+
+    /// <summary>
+    /// The pool manager this game object should return once it's done.
+    /// </summary>
+    public GameObjectPoolManager poolManager;
+
+    /// <summary>
+    /// The amount of damage this game object can do.
+    /// </summary>
+    public float damage = 1.0f;
+
+    /// <summary>
+    /// The LayerMask for objects we can inflict damage to
+    /// </summary>
+    public LayerMask collisionLayerMask;
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
+        {
+            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
+            foreach (IDamageable damageable in damageables)
+            {
+                damageable.DidDamage(damage);
+            }
+            poolManager.RecycleGameObject(gameObject.name, gameObject);
+        }
+    }
+
+    public void OnSpawn()
+    {
+        //Nothing here for now
+    }
+
+    public void OnDespawn()
+    {
+        poolManager = null;
+    }
 }

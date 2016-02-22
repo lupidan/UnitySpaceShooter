@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21250110}
   - 60: {fileID: 6005238}
   - 50: {fileID: 5080042}
+  - 114: {fileID: 11462308}
   - 114: {fileID: 11406766}
   m_Layer: 10
   m_Name: EnemyShip_00
@@ -143,10 +144,6 @@ MonoBehaviour:
   bulletSpeed: 10
   facePlayer: 0
   scoreIncrease: 100
-  shipDamage: 50
-  collisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 1.12
   velocity: {x: 0, y: 0, z: 0}
@@ -163,6 +160,22 @@ MonoBehaviour:
     y: -3
     width: 14
     height: 8
+--- !u!114 &11462308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e481f42796ed094bb452b215f32b8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolManager: {fileID: 0}
+  damage: 50
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &21250110
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -211,6 +224,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: shootRepeatingInterval
       value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

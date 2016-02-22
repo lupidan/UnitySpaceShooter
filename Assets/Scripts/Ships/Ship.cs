@@ -90,12 +90,18 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageable {
             Bullet bullet = bulletGameObject.GetComponent<Bullet>();
             if (bullet != null)
             {
-                bullet.damage = bulletDamage;
                 bullet.direction = transform.rotation.eulerAngles.z + bulletDirectionOffset;
                 bullet.speed = bulletSpeed;
                 bullet.acceleration = 0.0f;
-                bullet.collisionLayerMask = bulletsLayerMask;
                 bullet.poolManager = poolManager;
+            }
+
+            DamageInflictor damageInflictor = bulletGameObject.GetComponent<DamageInflictor>();
+            if (damageInflictor != null)
+            {
+                damageInflictor.damage = bulletDamage;
+                damageInflictor.collisionLayerMask = bulletsLayerMask;
+                damageInflictor.poolManager = poolManager;
             }
         }
     }
