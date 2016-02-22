@@ -25,15 +25,15 @@
 using UnityEngine;
 
 /// <summary>
-/// The IDamageable interface defines something that can be damaged.
+/// The IDamageable interface defines something that has the abilitie of being inflicted with damage
 /// </summary>
-public interface IDamageable {
+public interface IDamageInflictable {
 
     /// <summary>
-    /// Method called to apply damage.
+    /// Method called to inflict damage.
     /// </summary>
-    /// <param name="damage">The amount of applied damage.</param>
-    void DidDamage(float damage);
+    /// <param name="damage">The amount of inflicted damage.</param>
+    void InflictDamage(float damage);
 
 }
 
@@ -63,10 +63,10 @@ public class DamageInflictor: MonoBehaviour, IPooledObject
     {
         if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
         {
-            IDamageable[] damageables = other.gameObject.GetComponents<IDamageable>();
-            foreach (IDamageable damageable in damageables)
+            IDamageInflictable[] damageInflictables = other.gameObject.GetComponents<IDamageInflictable>();
+            foreach (IDamageInflictable damageInflictable in damageInflictables)
             {
-                damageable.DidDamage(damage);
+                damageInflictable.InflictDamage(damage);
             }
             poolManager.RecycleGameObject(gameObject.name, gameObject);
         }

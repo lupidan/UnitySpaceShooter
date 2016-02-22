@@ -202,7 +202,7 @@ MonoBehaviour:
   bulletDirectionOffset: 270
   bulletSpeed: 10
   facePlayer: 1
-  scoreIncrease: 1000
+  scoreValue: 600
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 0.88
   velocity: {x: 0, y: 0, z: 0}
@@ -275,6 +275,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: scoreValue
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

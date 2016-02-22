@@ -25,7 +25,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Ship : MonoBehaviour, IPooledObject, IDamageable {
+public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     /// <summary>
     /// The main GameObject pool manager. Used to retrieve bullets, and recycle Ships.
@@ -126,7 +126,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageable {
         poolManager = null;
     }
 
-    public virtual void DidDamage(float damage)
+    public virtual void InflictDamage(float damage)
     {
         healthPoints -= damage;
         if (healthPoints <= 0.0f)

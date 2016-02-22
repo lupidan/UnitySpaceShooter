@@ -169,9 +169,9 @@ public class PlayerShip : Ship
         gameArea = new Rect(minPosition.x, minPosition.y, sizeVector.x, sizeVector.y);
     }
 
-    public override void DidDamage(float damage)
+    public override void InflictDamage(float damage)
     {
-        base.DidDamage(damage);
+        base.InflictDamage(damage);
         if (healthPoints > 0.0f)
         {
             SetInvincibleForTime(0.5f);

@@ -34,7 +34,7 @@ public class EnemyShip : Ship {
     /// <summary>
     /// The number of points destroying the ship will give the player.
     /// </summary>
-    public int scoreIncrease = 100;
+    public int scoreValue = 100;
 
     /// <summary>
     /// Offset to apply the angle to face the player.
@@ -137,13 +137,13 @@ public class EnemyShip : Ship {
         poolManager = null;
     }
 
-    public override void DidDamage(float damage)
+    public override void InflictDamage(float damage)
     {
-        base.DidDamage(damage);
+        base.InflictDamage(damage);
 
         if (healthPoints <= 0.0f)
         {
-            gameControl.score += scoreIncrease;
+            gameControl.score += scoreValue;
         }
     }
 }
