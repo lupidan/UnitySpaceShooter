@@ -30,16 +30,6 @@ using UnityEngine;
 public class EnemySpawnManager : MonoBehaviour {
 
     /// <summary>
-    /// The pool manager to use to Spawn GameObjects
-    /// </summary>
-    public GameObjectPoolManager poolManager = null;
-
-    /// <summary>
-    /// The Game Control.
-    /// </summary>
-    public GameControl gameControl = null;
-
-    /// <summary>
     /// The list of events we want to execute.
     /// </summary>
     public EnemySpawnEventList eventList = null;
@@ -63,22 +53,13 @@ public class EnemySpawnManager : MonoBehaviour {
     {
         if (spawnEvent.enemyPrefabName != null && spawnEvent.enemyPrefabName.Length > 0)
         {
-            GameObject playerShipGameObject = poolManager.SpawnPrefabNamed(spawnEvent.enemyPrefabName);
+            GameObject playerShipGameObject = Toolbox.PoolManager.SpawnPrefabNamed(spawnEvent.enemyPrefabName);
             playerShipGameObject.transform.position = spawnEvent.enemyStartPoint;
             EnemyShip enemyShip = playerShipGameObject.GetComponent<EnemyShip>();
             if (enemyShip != null)
             {
                 enemyShip.velocity = spawnEvent.enemyVelocity;
                 enemyShip.acceleration = spawnEvent.enemyAcceleration;
-
-                enemyShip.poolManager = poolManager;
-                enemyShip.gameControl = gameControl;
-            }
-
-            DamageInflictor damageInflictor = playerShipGameObject.GetComponent<DamageInflictor>();
-            if (damageInflictor != null)
-            {
-                damageInflictor.poolManager = poolManager;
             }
 
             return playerShipGameObject;

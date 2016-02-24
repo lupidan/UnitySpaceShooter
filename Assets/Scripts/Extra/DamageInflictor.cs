@@ -40,13 +40,7 @@ public interface IDamageInflictable {
 /// <summary>
 /// Damage inflictor represents a GameObject component that reacts to other objects when colliding and applies damage to them if they are damageable
 /// </summary>
-public class DamageInflictor: MonoBehaviour, IPooledObject
-{
-
-    /// <summary>
-    /// The pool manager this game object should return once it has collided and applied damage.
-    /// </summary>
-    public GameObjectPoolManager poolManager;
+public class DamageInflictor: MonoBehaviour {
 
     /// <summary>
     /// The amount of damage this game object can do.
@@ -68,17 +62,8 @@ public class DamageInflictor: MonoBehaviour, IPooledObject
             {
                 damageInflictable.InflictDamage(damage);
             }
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
         }
     }
 
-    public void OnSpawn()
-    {
-        //Nothing here for now
-    }
-
-    public void OnDespawn()
-    {
-        poolManager = null;
-    }
 }

@@ -28,16 +28,6 @@ using System.Collections.Generic;
 public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     /// <summary>
-    /// The main GameObject pool manager. Used to retrieve bullets, and recycle Ships.
-    /// </summary>
-    public GameObjectPoolManager poolManager = null;
-
-    /// <summary>
-    /// The Game Control object.
-    /// </summary>
-    public GameControl gameControl = null;
-
-    /// <summary>
     /// The number of health points for the ship when spawned.
     /// </summary>
     public float initialHealthPoints = 100.0f;
@@ -46,6 +36,17 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     /// The ship's health
     /// </summary>
     public float healthPoints = 100.0f;
+
+    /// <summary>
+    /// (Read only) returns the normalized health for this ship (from 0.0f to 1.0f)
+    /// </summary>
+    public float normalizedHealthPoints
+    {
+        get
+        {
+            return healthPoints / initialHealthPoints;
+        }
+    }
 
     /// <summary>
     /// The layer mask for our bullets. This indicates to what layers our bullets will affect.
@@ -85,7 +86,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     {
         foreach (Transform laserPosition in laserPositions)
         {
-            GameObject bulletGameObject = poolManager.SpawnPrefabNamed(bulletPrefabName);
+            GameObject bulletGameObject = Toolbox.PoolManager.SpawnPrefabNamed(bulletPrefabName);
             bulletGameObject.transform.position = laserPosition.position;
             Bullet bullet = bulletGameObject.GetComponent<Bullet>();
             if (bullet != null)
@@ -93,7 +94,6 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
                 bullet.direction = transform.rotation.eulerAngles.z + bulletDirectionOffset;
                 bullet.speed = bulletSpeed;
                 bullet.acceleration = 0.0f;
-                bullet.poolManager = poolManager;
             }
 
             DamageInflictor damageInflictor = bulletGameObject.GetComponent<DamageInflictor>();
@@ -101,7 +101,6 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
             {
                 damageInflictor.damage = bulletDamage;
                 damageInflictor.collisionLayerMask = bulletsLayerMask;
-                damageInflictor.poolManager = poolManager;
             }
         }
     }
@@ -123,7 +122,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     public virtual void OnDespawn()
     {
-        poolManager = null;
+        //Nothing here for now
     }
 
     public virtual void InflictDamage(float damage)
@@ -131,7 +130,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
         healthPoints -= damage;
         if (healthPoints <= 0.0f)
         {
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
         }
     }
 

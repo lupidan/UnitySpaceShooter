@@ -27,26 +27,6 @@ using UnityEngine;
 public class GameControl : MonoBehaviour {
 
     /// <summary>
-    /// The pool manager to use to Spawn GameObjects.
-    /// </summary>
-    public GameObjectPoolManager poolManager = null;
-
-    /// <summary>
-    /// The main game enemy spawn manager. Responsible of spawing all the enemies.
-    /// </summary>
-    public EnemySpawnManager enemySpawnManager = null;
-
-    /// <summary>
-    /// The Game Menu.
-    /// </summary>
-    public GameMenu gameMenu = null;
-
-    /// <summary>
-    /// The Highscores manager, responsible of keeping the highscores table.
-    /// </summary>
-    public HighscoresManager highscoresManager = null;
-
-    /// <summary>
     /// The initial position for the player.
     /// </summary>
     public Transform playerStartPosition = null;
@@ -78,14 +58,12 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void SpawnPlayer()
     {
-        GameObject playerShipGameObject = poolManager.SpawnPrefabNamed("PlayerShip");
+        GameObject playerShipGameObject = Toolbox.PoolManager.SpawnPrefabNamed("PlayerShip");
         playerShipGameObject.transform.position = playerStartPosition.position;
         PlayerShip playerShip = playerShipGameObject.GetComponent<PlayerShip>();
         if (playerShip != null)
         {
             playerShip.SetInvincibleForTime(1.0f);
-            playerShip.poolManager = poolManager;
-            playerShip.gameControl = this;
 
             this.playerShip = playerShip;
         }
@@ -108,9 +86,9 @@ public class GameControl : MonoBehaviour {
     {
         lives = initialLives;
         score = 0;
-        poolManager.RecycleAllSpawnedObjects();
+        Toolbox.PoolManager.RecycleAllSpawnedObjects();
         SpawnPlayer();
-        enemySpawnManager.StartEvents();
+        Toolbox.EnemySpawnManager.StartEvents();
         Time.timeScale = 1.0f;
     }
 
@@ -135,8 +113,8 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void EndGame()
     {
-        poolManager.RecycleAllSpawnedObjects();
-        enemySpawnManager.CancelEvents();
+        Toolbox.PoolManager.RecycleAllSpawnedObjects();
+        Toolbox.EnemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;
     }
 
@@ -145,9 +123,9 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void GameOver()
     {
-        highscoresManager.AddHighscore("LUPI", score);
-        gameMenu.VisibleOption = GameMenu.Option.GameOverMenu;
-        enemySpawnManager.CancelEvents();
+        Toolbox.HighscoresManager.AddHighscore("LUPI", score);
+        Toolbox.GameMenu.VisibleOption = GameMenu.Option.GameOverMenu;
+        Toolbox.EnemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;
     }
 

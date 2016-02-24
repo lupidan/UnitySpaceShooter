@@ -111,7 +111,7 @@ public class EnemyShip : Ship {
 
             if (!activeArea.Contains(transform.position))
             {
-                poolManager.RecycleGameObject(gameObject.name, gameObject);
+                Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
             }
         }
     }
@@ -134,7 +134,6 @@ public class EnemyShip : Ship {
     {
         base.OnDespawn();
         CancelInvoke("ShootIfInside");
-        poolManager = null;
     }
 
     public override void InflictDamage(float damage)
@@ -143,7 +142,7 @@ public class EnemyShip : Ship {
 
         if (healthPoints <= 0.0f)
         {
-            gameControl.score += scoreValue;
+            Toolbox.GameControl.score += scoreValue;
         }
     }
 }

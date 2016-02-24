@@ -178,14 +178,14 @@ public class PlayerShip : Ship
         }
         else
         {
-            if (gameControl.lives <= 0)
+            if (Toolbox.GameControl.lives <= 0)
             {
-                gameControl.GameOver();
+                Toolbox.GameControl.GameOver();
             }
             else
             {
-                gameControl.lives -= 1;
-                gameControl.SpawnPlayerInTime(2.0f);
+                Toolbox.GameControl.lives -= 1;
+                Toolbox.GameControl.SpawnPlayerInTime(2.0f);
             }
         }
     }
