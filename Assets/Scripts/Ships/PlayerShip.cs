@@ -153,12 +153,6 @@ public class PlayerShip : Ship
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        gameArea.DrawGizmo();
-    }
-
     public override void OnSpawn()
     {
         base.OnSpawn();

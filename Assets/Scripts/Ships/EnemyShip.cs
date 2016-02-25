@@ -116,14 +116,6 @@ public class EnemyShip : Ship {
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        activeArea.DrawGizmo();
-        Gizmos.color = Color.magenta;
-        shootingArea.DrawGizmo();
-    }
-
     public override void OnSpawn()
     {
         base.OnSpawn();

@@ -67,12 +67,6 @@ public class Bullet : MonoBehaviour, IPooledObject {
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        activeArea.DrawGizmo();
-    }
-
     public void OnSpawn()
     {
         //Nothing here for now
