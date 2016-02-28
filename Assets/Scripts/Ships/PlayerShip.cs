@@ -76,34 +76,9 @@ public class PlayerShip : Ship
     }
 
     /// <summary>
-    /// This method updates the ship's position checking the Keyboard input.
+    /// The object responsible of controlling the ship position and shooting.
     /// </summary>
-    protected void UpdateKeyboardControls()
-    {
-        Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-        Vector3 newPosition = transform.position + (inputVector * 5.0f * Time.deltaTime);
-        this.transform.position = gameArea.ClampPosition(newPosition);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shoot();
-        }
-    }
-
-    /// <summary>
-    /// This method updates the ship's position checking the Mouse inputs.
-    /// </summary>
-    protected void UpdateMouseControls()
-    {
-        Vector3 positionVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        positionVector.z = this.transform.position.z;
-        this.transform.position = gameArea.ClampPosition(positionVector);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-    }
+    private IShipControl shipControl;
 
     /// <summary>
     /// Updates ship alpha depending on the Invincible status.
@@ -142,13 +117,12 @@ public class PlayerShip : Ship
         base.Update();
         if (Time.deltaTime > 0.0)
         {
-            if (GamePlayerPrefs.IsMouseControlEnabled)
+            Vector3 newPosition = shipControl.UpdatePosition(transform.position, Time.deltaTime);
+            transform.position = gameArea.ClampPosition(newPosition);
+
+            if (shipControl.ShootButtonPressed)
             {
-                UpdateMouseControls();
-            }
-            else
-            {
-                UpdateKeyboardControls();
+                Shoot();
             }
         }
     }
@@ -161,6 +135,15 @@ public class PlayerShip : Ship
         Vector3 maxPosition = Camera.main.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, 0.0f));
         Vector3 sizeVector = maxPosition - minPosition;
         gameArea = new Rect(minPosition.x, minPosition.y, sizeVector.x, sizeVector.y);
+
+        if (GamePlayerPrefs.IsMouseControlEnabled)
+        {
+            this.shipControl = new MouseShipControl();
+        }
+        else
+        {
+            this.shipControl = new KeyboardShipControl();
+        }
     }
 
     public override void InflictDamage(float damage)
