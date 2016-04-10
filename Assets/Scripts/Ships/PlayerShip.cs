@@ -26,6 +26,7 @@ using UnityEngine;
 
 public class PlayerShip : Ship
 {
+
     /// <summary>
     /// The name of the layer where the Player's Ship takes damage.
     /// </summary>
@@ -58,6 +59,8 @@ public class PlayerShip : Ship
         }
     }
 
+
+
     /// <summary>
     /// The rectangular area the ship is limited to play in.
     /// </summary>
@@ -79,6 +82,8 @@ public class PlayerShip : Ship
     /// The object responsible of controlling the ship position and shooting.
     /// </summary>
     private IShipControl shipControl;
+
+
 
     /// <summary>
     /// Updates ship alpha depending on the Invincible status.
@@ -112,9 +117,10 @@ public class PlayerShip : Ship
         UpdateShipAlpha();
     }
 
-    protected override void Update()
+
+
+    void Update()
     {
-        base.Update();
         if (Time.deltaTime > 0.0)
         {
             Vector3 newPosition = shipControl.UpdatePosition(transform.position, Time.deltaTime);
@@ -126,6 +132,8 @@ public class PlayerShip : Ship
             }
         }
     }
+
+
 
     public override void OnSpawn()
     {
@@ -146,22 +154,24 @@ public class PlayerShip : Ship
         }
     }
 
+
+
     public override void InflictDamage(float damage)
     {
         base.InflictDamage(damage);
-        if (healthPoints > 0.0f)
+        if (HealthPoints > 0.0f)
         {
             SetInvincibleForTime(0.5f);
         }
         else
         {
-            if (Toolbox.GameControl.lives <= 0)
+            if (Toolbox.GameControl.Lives <= 0)
             {
-                Toolbox.GameControl.GameOver();
+                Toolbox.GameControl.FinishGame();
             }
             else
             {
-                Toolbox.GameControl.lives -= 1;
+                Toolbox.GameControl.Lives -= 1;
                 Toolbox.GameControl.SpawnPlayerInTime(2.0f);
             }
         }

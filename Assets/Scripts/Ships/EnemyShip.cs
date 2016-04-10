@@ -26,6 +26,7 @@ using UnityEngine;
 
 public class EnemyShip : Ship {
 
+
     /// <summary>
     /// Face the player if there is one.
     /// </summary>
@@ -66,6 +67,8 @@ public class EnemyShip : Ship {
     /// </summary>
     public Rect shootingArea = new Rect();
 
+
+
     /// <summary>
     /// Update the rotation of the GameObject to face the specified PlayerShip
     /// </summary>
@@ -91,9 +94,10 @@ public class EnemyShip : Ship {
         }
     }
 
-    protected override void Update()
+
+
+    void Update()
     {
-        base.Update();
 
         if (Time.deltaTime > 0.0f)
         {
@@ -116,6 +120,8 @@ public class EnemyShip : Ship {
         }
     }
 
+
+
     public override void OnSpawn()
     {
         base.OnSpawn();
@@ -128,13 +134,16 @@ public class EnemyShip : Ship {
         CancelInvoke("ShootIfInside");
     }
 
+
+
     public override void InflictDamage(float damage)
     {
         base.InflictDamage(damage);
 
-        if (healthPoints <= 0.0f)
+        if (HealthPoints <= 0.0f)
         {
-            Toolbox.GameControl.score += scoreValue;
+            Toolbox.GameControl.Score += scoreValue;
         }
     }
+
 }

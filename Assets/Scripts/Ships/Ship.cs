@@ -28,14 +28,46 @@ using System.Collections.Generic;
 public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     /// <summary>
+    /// Delegate for events related to a Ship
+    /// </summary>
+    /// <param name="ship">The ship components where the event happened.</param>
+    public delegate void ShipEvent(Ship ship);
+
+
+
+    /// <summary>
+    /// Event when the ship's health changes
+    /// </summary>
+    public event ShipEvent OnHealthChange;
+
+
+
+    /// <summary>
     /// The number of health points for the ship when spawned.
     /// </summary>
     public float initialHealthPoints = 100.0f;
 
+    private float healthPoints = 100.0f;
+
     /// <summary>
     /// The ship's health
     /// </summary>
-    public float healthPoints = 100.0f;
+    public float HealthPoints
+    {
+        get
+        {
+            return healthPoints;
+        }
+        set
+        {
+            healthPoints = value;
+
+            if (onHealthChange != null)
+            {
+                onHealthChange(this);
+            }
+        }
+    }
 
     /// <summary>
     /// (Read only) returns the normalized health for this ship (from 0.0f to 1.0f)
@@ -44,7 +76,11 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     {
         get
         {
-            return healthPoints / initialHealthPoints;
+            if (initialHealthPoints > 0.0f)
+            {
+                return healthPoints / initialHealthPoints;
+            }
+            return 0;
         }
     }
 
@@ -105,30 +141,23 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
         }
     }
 
-    protected virtual void Start ()
-    {
-	
-	}
-
-    protected virtual void Update ()
-    {
-	
-	}
-
     public virtual void OnSpawn()
     {
-        healthPoints = initialHealthPoints;
+        HealthPoints = initialHealthPoints;
     }
 
     public virtual void OnDespawn()
     {
-        //Nothing here for now
+        if (onHealthChange != null)
+        {
+            onHealthChange = null;
+        }
     }
 
     public virtual void InflictDamage(float damage)
     {
-        healthPoints -= damage;
-        if (healthPoints <= 0.0f)
+        HealthPoints -= damage;
+        if (HealthPoints <= 0.0f)
         {
             Toolbox.PoolManager.RecycleGameObject(gameObject);
         }

@@ -31,6 +31,8 @@ using System.Collections.Generic;
 /// </summary>
 public class GameMenu : MonoBehaviour {
 
+
+
     /// <summary>
     /// Enum type for the available menu options
     /// </summary>
@@ -41,6 +43,8 @@ public class GameMenu : MonoBehaviour {
         PauseMenu,
         GameOverMenu
     }
+
+
 
     /// <summary>
     /// Private visible option var
@@ -64,7 +68,6 @@ public class GameMenu : MonoBehaviour {
             pauseMenu.SetActive(_visibleOption == Option.PauseMenu);
             gameOverMenu.SetActive(_visibleOption == Option.GameOverMenu);
 
-            UpdateControlIcon();
             UpdateHighscoresText();
         }
     }
@@ -119,108 +122,134 @@ public class GameMenu : MonoBehaviour {
     /// </summary>
     public Image playerHealthImage = null;
 
+
+
+
     void Start ()
     {
         this.VisibleOption = Option.MainMenu;
+
+        Toolbox.GameControl.OnGameStart += OnGameStart;
+        Toolbox.GameControl.OnControlModeChange += OnControlModeChange;
+        Toolbox.GameControl.OnGamePause += OnGamePause;
+        Toolbox.GameControl.OnGameContinue += OnGameContinue;
+        Toolbox.GameControl.OnGameEnd += OnGameEnd;
+        Toolbox.GameControl.OnGameFinished += OnGameFinished;
+
+        Toolbox.GameControl.OnScoreUpdate += OnScoreUpdate;
+        Toolbox.GameControl.OnLivesUpdate += OnLivesUpdate;
+        
+        UpdateControlIcon();
+        UpdateScoreText(0);
+        UpdateLivesText(0);
+        UpdateHealthImage(0.0f);
     }
-	
-	void Update () {
 
-        if (gameMenu.activeSelf)
-        {
-            UpdateGameMenu();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (VisibleOption == Option.GameMenu)
-            {
-                Toolbox.GameControl.PauseGame();
-                VisibleOption = Option.PauseMenu;
-            }
-            else
-            {
-                Toolbox.GameControl.UnpauseGame();
-                VisibleOption = Option.GameMenu;
-            }
-        }
-
-	}
-
-    /// <summary>
-    /// Updates the game menu UI.
-    /// </summary>
-    private void UpdateGameMenu()
+    void OnDestroy()
     {
-        livesText.text = Toolbox.GameControl.lives.ToString("D2");
-        scoreText.text = Toolbox.GameControl.score.ToString("D8");
-        if (Toolbox.GameControl.playerShip != null)
-        {
-            playerHealthImage.fillAmount = Toolbox.GameControl.playerShip.healthPoints / Toolbox.GameControl.playerShip.initialHealthPoints;
-        }
-        else
-        {
-            playerHealthImage.fillAmount = 0.0f;
-        }
+        Toolbox.GameControl.OnGameStart -= OnGameStart;
+        Toolbox.GameControl.OnControlModeChange -= OnControlModeChange;
+        Toolbox.GameControl.OnGamePause -= OnGamePause;
+        Toolbox.GameControl.OnGameContinue -= OnGameContinue;
+        Toolbox.GameControl.OnGameEnd -= OnGameEnd;
+        Toolbox.GameControl.OnGameFinished -= OnGameFinished;
+
+        Toolbox.GameControl.OnScoreUpdate -= OnScoreUpdate;
+        Toolbox.GameControl.OnLivesUpdate -= OnLivesUpdate;
     }
 
-    /// <summary>
-    /// Updates the text shown for the highscores
-    /// </summary>
-    private void UpdateHighscoresText()
+
+
+    public void OnGameStart(GameControl gameControl)
     {
-        string text = "";
-        List<HighscoresEntry> entries = Toolbox.HighscoresManager.table.entries;
-        for(int i=0; i < entries.Count; i++)
-        {
-            text += (i + 1) + ". " + entries[i].name + " - " + entries[i].score.ToString("D8") + "\n";
-        }
-        highscoresText.text = text;
+        VisibleOption = Option.GameMenu;
+
+        gameControl.playerShip.OnHealthChange += OnHealthChange;
     }
+
+    public void OnControlModeChange(GameControl gameControl)
+    {
+        UpdateControlIcon();
+    }
+
+    public void OnGamePause(GameControl gameControl)
+    {
+        VisibleOption = Option.PauseMenu;
+    }
+
+    public void OnGameContinue(GameControl gameControl)
+    {
+        VisibleOption = Option.GameMenu;
+    }
+
+    public void OnGameEnd(GameControl gameControl)
+    {
+        VisibleOption = Option.MainMenu;
+    }
+
+    public void OnGameFinished(GameControl gameControl)
+    {
+        VisibleOption = GameMenu.Option.GameOverMenu;
+    }
+
+    public void OnScoreUpdate(GameControl gameControl)
+    {
+        UpdateScoreText(gameControl.Score);
+    }
+
+    public void OnLivesUpdate(GameControl gameControl)
+    {
+        UpdateLivesText(gameControl.Lives);
+    }
+
+    public void OnHealthChange(Ship ship)
+    {
+        UpdateHealthImage(ship.normalizedHealthPoints);
+    }
+
+
 
     /// <summary>
     /// The start game was selected.
     /// </summary>
-    public void ButtonSelectedStartGame()
+    public void ButtonStartGameSelected()
     {
         Toolbox.GameControl.StartGame();
-        VisibleOption = Option.GameMenu;
     }
 
     /// <summary>
     /// The control mode switch button was selected.
     /// </summary>
-    public void ButtonSelectedChangeControlMode()
+    public void ButtonChangeControlModeSelected()
     {
-        GamePlayerPrefs.IsMouseControlEnabled = !GamePlayerPrefs.IsMouseControlEnabled;
-        UpdateControlIcon();
+        Toolbox.GameControl.SwitchControlMode();
     }
 
     /// <summary>
-    /// The exit button was selected.
+    /// The quit button was selected.
     /// </summary>
-    public void ButtonSelectedExitGame()
+    public void ButtonQuitGameSelected()
     {
-        Application.Quit();
+        Toolbox.GameControl.QuitGame();
     }
 
     /// <summary>
     /// The continue game button was selected.
     /// </summary>
-    public void ButtonSelectedContinueGame()
+    public void ButtonContinueGameSelected()
     {
-        Toolbox.GameControl.UnpauseGame();
-        VisibleOption = Option.GameMenu;
+        Toolbox.GameControl.ContinueGame();
     }
 
     /// <summary>
     /// The End Game button was selected.
     /// </summary>
-    public void ButtonSelectedEndGame()
+    public void ButtonEndGameSelected()
     {
         Toolbox.GameControl.EndGame();
-        VisibleOption = Option.MainMenu;
     }
+
+
 
     /// <summary>
     /// Updates the control icon to show the selected preference.
@@ -231,4 +260,46 @@ public class GameMenu : MonoBehaviour {
         iconKeyboardImage.SetActive(!isMouseControlEnabled);
         iconMouseImage.SetActive(isMouseControlEnabled);
     }
+
+    /// <summary>
+    /// Updates the text shown for the highscores
+    /// </summary>
+    private void UpdateHighscoresText()
+    {
+        string text = "";
+        List<HighscoresEntry> entries = Toolbox.HighscoresManager.table.entries;
+        for (int i = 0; i < entries.Count; i++)
+        {
+            text += (i + 1) + ". " + entries[i].name + " - " + entries[i].score.ToString("D8") + "\n";
+        }
+        highscoresText.text = text;
+    }
+
+    /// <summary>
+    /// Updates the lives text in the UI
+    /// </summary>
+    /// <param name="lives">The number of lives</param>
+    private void UpdateLivesText(int lives)
+    {
+        livesText.text = lives.ToString("D2");
+    }
+
+    /// <summary>
+    /// Updates the score in the UI
+    /// </summary>
+    /// <param name="score">The new score value</param>
+    private void UpdateScoreText(int score)
+    {
+        scoreText.text = score.ToString("D8");
+    }
+
+    /// <summary>
+    /// Updates the health image percentage in the UI
+    /// </summary>
+    /// <param name="health">The amount of health, from 0 to 1</param>
+    private void UpdateHealthImage(float health)
+    {
+        playerHealthImage.fillAmount = health;
+    }
+
 }

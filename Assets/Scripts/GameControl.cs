@@ -27,6 +27,61 @@ using UnityEngine;
 public class GameControl : MonoBehaviour {
 
     /// <summary>
+    /// Delegate for events related to the Game Control
+    /// </summary>
+    /// <param name="gameControl">The GameControl where the event happened</param>
+    public delegate void GameControlEvent(GameControl gameControl);
+
+
+
+    /// <summary>
+    /// Event when the game starts.
+    /// </summary>
+    public event GameControlEvent OnGameStart;
+
+    /// <summary>
+    /// Event called when the control mode is changed.
+    /// </summary>
+    public event GameControlEvent OnControlModeChange;
+
+    /// <summary>
+    /// Event that happens when the player exits the whole game.
+    /// </summary>
+    public event GameControlEvent OnGameQuit;
+    
+    /// <summary>
+    /// Event when the game is paused.
+    /// </summary>
+    public event GameControlEvent OnGamePause;
+    
+    /// <summary>
+    /// Event when the game continues.
+    /// </summary>
+    public event GameControlEvent OnGameContinue;
+
+    /// <summary>
+    /// Event when the player ends the current game to the game menu.
+    /// </summary>
+    public event GameControlEvent OnGameEnd;
+
+    /// <summary>
+    /// Event when the game has finished.
+    /// </summary>
+    public event GameControlEvent OnGameFinished;
+
+    /// <summary>
+    /// Event called when the score is updated.
+    /// </summary>
+    public event GameControlEvent OnScoreUpdate;
+
+    /// <summary>
+    /// Event called when the number of lives is updated.
+    /// </summary>
+    public event GameControlEvent OnLivesUpdate;
+
+
+
+    /// <summary>
     /// The player ship prefab to create the player.
     /// </summary>
     public GameObject playerShipPrefab = null;
@@ -40,23 +95,82 @@ public class GameControl : MonoBehaviour {
     /// The initial number of lives.
     /// </summary>
     public int initialLives = 0;
+    
+    private int score = 0;
 
     /// <summary>
     /// The player score.
     /// </summary>
-    [HideInInspector]
-    public int score = 0;
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                value = 0;
+            }
+            score = value;
+
+            if (OnScoreUpdate != null)
+            {
+                OnScoreUpdate(this);
+            }
+        }
+    }
+
+    private int lives = 0;
 
     /// <summary>
     /// The number of lives available.
     /// </summary>
-    [HideInInspector]
-    public int lives = 0;
+    public int Lives
+    {
+        get
+        {
+            return lives;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                value = 0;
+            }
+            lives = value;
+
+            if (OnLivesUpdate != null)
+            {
+                OnLivesUpdate(this);
+            }
+        }
+    }
 
     /// <summary>
     /// The player ship for this game.
     /// </summary>
     public PlayerShip playerShip { get; private set; }
+
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Toolbox.GameMenu.VisibleOption == GameMenu.Option.GameMenu)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ContinueGame();
+            }
+        }
+    }
+
+
 
     /// <summary>
     /// Spawns a player on the screen.
@@ -89,12 +203,43 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void StartGame()
     {
-        lives = initialLives;
-        score = 0;
+        Lives = initialLives;
+        Score = 0;
         Toolbox.PoolManager.RecycleAllSpawnedObjects();
         SpawnPlayer();
         Toolbox.EnemySpawnManager.StartEvents();
         Time.timeScale = 1.0f;
+
+        if (OnGameStart != null)
+        {
+            OnGameStart(this);
+        }
+    }
+
+    /// <summary>
+    /// Switches the control mode
+    /// </summary>
+    public void SwitchControlMode()
+    {
+        GamePlayerPrefs.IsMouseControlEnabled = !GamePlayerPrefs.IsMouseControlEnabled;
+
+        if (OnControlModeChange != null)
+        {
+            OnControlModeChange(this);
+        }
+    }
+
+    /// <summary>
+    /// Quits the game
+    /// </summary>
+    public void QuitGame()
+    {
+        if (OnGameQuit != null)
+        {
+            OnGameQuit(this);
+        }
+
+        Application.Quit();
     }
 
     /// <summary>
@@ -103,14 +248,24 @@ public class GameControl : MonoBehaviour {
     public void PauseGame()
     {
         Time.timeScale = 0.0f;
+
+        if (OnGamePause != null)
+        {
+            OnGamePause(this);
+        }
     }
 
     /// <summary>
-    /// Unpauses the game.
+    /// Continues the game.
     /// </summary>
-    public void UnpauseGame()
+    public void ContinueGame()
     {
         Time.timeScale = 1.0f;
+
+        if (OnGameContinue != null)
+        {
+            OnGameContinue(this);
+        }
     }
 
     /// <summary>
@@ -121,17 +276,26 @@ public class GameControl : MonoBehaviour {
         Toolbox.PoolManager.RecycleAllSpawnedObjects();
         Toolbox.EnemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;
+
+        if (OnGameEnd != null)
+        {
+            OnGameEnd(this);
+        }
     }
 
     /// <summary>
     /// Executes Game Over.
     /// </summary>
-    public void GameOver()
+    public void FinishGame()
     {
         Toolbox.HighscoresManager.AddHighscore("LUPI", score);
-        Toolbox.GameMenu.VisibleOption = GameMenu.Option.GameOverMenu;
         Toolbox.EnemySpawnManager.CancelEvents();
         Time.timeScale = 1.0f;
-    }
 
+        if (OnGameFinished != null)
+        {
+            OnGameFinished(this);
+        }
+    }
+    
 }
