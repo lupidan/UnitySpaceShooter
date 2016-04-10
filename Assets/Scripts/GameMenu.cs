@@ -70,11 +70,6 @@ public class GameMenu : MonoBehaviour {
     }
 
     /// <summary>
-    /// The Game Control.
-    /// </summary>
-    public GameControl gameControl = null;
-
-    /// <summary>
     /// GameObject containing the main menu.
     /// </summary>
     public GameObject mainMenu = null;
@@ -140,12 +135,12 @@ public class GameMenu : MonoBehaviour {
         {
             if (VisibleOption == Option.GameMenu)
             {
-                gameControl.PauseGame();
+                Toolbox.GameControl.PauseGame();
                 VisibleOption = Option.PauseMenu;
             }
             else
             {
-                gameControl.UnpauseGame();
+                Toolbox.GameControl.UnpauseGame();
                 VisibleOption = Option.GameMenu;
             }
         }
@@ -157,11 +152,11 @@ public class GameMenu : MonoBehaviour {
     /// </summary>
     private void UpdateGameMenu()
     {
-        livesText.text = gameControl.lives.ToString("D2");
-        scoreText.text = gameControl.score.ToString("D8");
-        if (gameControl.playerShip != null)
+        livesText.text = Toolbox.GameControl.lives.ToString("D2");
+        scoreText.text = Toolbox.GameControl.score.ToString("D8");
+        if (Toolbox.GameControl.playerShip != null)
         {
-            playerHealthImage.fillAmount = gameControl.playerShip.healthPoints / gameControl.playerShip.initialHealthPoints;
+            playerHealthImage.fillAmount = Toolbox.GameControl.playerShip.healthPoints / Toolbox.GameControl.playerShip.initialHealthPoints;
         }
         else
         {
@@ -175,7 +170,7 @@ public class GameMenu : MonoBehaviour {
     private void UpdateHighscoresText()
     {
         string text = "";
-        List<HighscoresEntry> entries = gameControl.highscoresManager.table.entries;
+        List<HighscoresEntry> entries = Toolbox.HighscoresManager.table.entries;
         for(int i=0; i < entries.Count; i++)
         {
             text += (i + 1) + ". " + entries[i].name + " - " + entries[i].score.ToString("D8") + "\n";
@@ -188,7 +183,7 @@ public class GameMenu : MonoBehaviour {
     /// </summary>
     public void ButtonSelectedStartGame()
     {
-        gameControl.StartGame();
+        Toolbox.GameControl.StartGame();
         VisibleOption = Option.GameMenu;
     }
 
@@ -214,7 +209,7 @@ public class GameMenu : MonoBehaviour {
     /// </summary>
     public void ButtonSelectedContinueGame()
     {
-        gameControl.UnpauseGame();
+        Toolbox.GameControl.UnpauseGame();
         VisibleOption = Option.GameMenu;
     }
 
@@ -223,7 +218,7 @@ public class GameMenu : MonoBehaviour {
     /// </summary>
     public void ButtonSelectedEndGame()
     {
-        gameControl.EndGame();
+        Toolbox.GameControl.EndGame();
         VisibleOption = Option.MainMenu;
     }
 

@@ -30,11 +30,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour, IPooledObject {
 
     /// <summary>
-    /// The pool manager this game object should return once it's done.
-    /// </summary>
-    public GameObjectPoolManager poolManager;
-
-    /// <summary>
     /// The area in where this bullet can live. Getting outside this area will return the bullet to the pool.
     /// </summary>
     public Rect activeArea = new Rect();
@@ -63,17 +58,19 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
         if (!activeArea.Contains(transform.position))
         {
-            poolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
         }
     }
 
     public void OnSpawn()
     {
-        //Nothing here for now
-    }
+        direction = 270.0f;
+        speed = 10.0f;
+        acceleration = 0.0f;
+}
 
     public void OnDespawn()
     {
-        poolManager = null;
+        //Nothing here for now
     }
 }
