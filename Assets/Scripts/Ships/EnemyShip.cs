@@ -111,7 +111,7 @@ public class EnemyShip : Ship {
 
             if (!activeArea.Contains(transform.position))
             {
-                Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
+                Toolbox.PoolManager.RecycleGameObject(gameObject);
             }
         }
     }

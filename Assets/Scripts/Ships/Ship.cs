@@ -54,9 +54,9 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     public LayerMask bulletsLayerMask = 0;
 
     /// <summary>
-    /// The bullet prefab name to retrieve from the main GameObjectPoolManager when shooting
+    /// The bullet prefab to retrieve from the main GameObjectPoolManager when shooting
     /// </summary>
-    public string bulletPrefabName = "";
+    public GameObject bulletPrefab = null;
 
     /// <summary>
     /// The damage to set for the shot bullets.
@@ -86,7 +86,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     {
         foreach (Transform laserPosition in laserPositions)
         {
-            GameObject bulletGameObject = Toolbox.PoolManager.SpawnPrefabNamed(bulletPrefabName);
+            GameObject bulletGameObject = Toolbox.PoolManager.SpawnGameObject(bulletPrefab);
             bulletGameObject.transform.position = laserPosition.position;
             Bullet bullet = bulletGameObject.GetComponent<Bullet>();
             if (bullet != null)
@@ -130,7 +130,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
         healthPoints -= damage;
         if (healthPoints <= 0.0f)
         {
-            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject);
         }
     }
 

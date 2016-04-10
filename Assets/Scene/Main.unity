@@ -443,19 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20edba127c44a9468fe3faf5b993b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 141704, guid: c378b0fa61ba63b438003fe9f65c6c7e, type: 2}
-  - {fileID: 147220, guid: 6c8652411b2741e4c83062278091ea2c, type: 2}
-  - {fileID: 100136, guid: 8b2fc803213028147bfdbb7ddc97d2c7, type: 2}
-  - {fileID: 135544, guid: bc2394f02755ba042bf556b7d1f0c0bd, type: 2}
-  - {fileID: 162238, guid: c912611199fb02c478aed6244d942025, type: 2}
-  - {fileID: 134658, guid: 4c1b9a34afe805e42bb1582c99293117, type: 2}
-  - {fileID: 109034, guid: d636b6c270db47e48b64fdcfef9202a1, type: 2}
-  - {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
-  - {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
-  - {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
-  - {fileID: 128186, guid: d2b4f99be90f5c1429b62118cb8dc5af, type: 2}
-  - {fileID: 154932, guid: eb0921ed9e9d468468acaf4e574ae4d0, type: 2}
 --- !u!4 &95889825
 Transform:
   m_ObjectHideFlags: 0
@@ -881,6 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85996d5c3bcfe4c4eaa118ed93b08bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerShipPrefab: {fileID: 109034, guid: d636b6c270db47e48b64fdcfef9202a1, type: 2}
   playerStartPosition: {fileID: 1103111482}
   initialLives: 2
   score: 0

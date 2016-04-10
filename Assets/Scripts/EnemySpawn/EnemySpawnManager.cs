@@ -51,9 +51,9 @@ public class EnemySpawnManager : MonoBehaviour {
     /// <returns>The enemy GameObject if any. null otherwise.</returns>
     public GameObject SpawnEnemy(EnemySpawnEvent spawnEvent)
     {
-        if (spawnEvent.enemyPrefabName != null && spawnEvent.enemyPrefabName.Length > 0)
+        if (spawnEvent.enemyPrefab != null)
         {
-            GameObject playerShipGameObject = Toolbox.PoolManager.SpawnPrefabNamed(spawnEvent.enemyPrefabName);
+            GameObject playerShipGameObject = Toolbox.PoolManager.SpawnGameObject(spawnEvent.enemyPrefab);
             playerShipGameObject.transform.position = spawnEvent.enemyStartPoint;
             EnemyShip enemyShip = playerShipGameObject.GetComponent<EnemyShip>();
             if (enemyShip != null)

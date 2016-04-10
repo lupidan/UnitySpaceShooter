@@ -27,6 +27,11 @@ using UnityEngine;
 public class GameControl : MonoBehaviour {
 
     /// <summary>
+    /// The player ship prefab to create the player.
+    /// </summary>
+    public GameObject playerShipPrefab = null;
+
+    /// <summary>
     /// The initial position for the player.
     /// </summary>
     public Transform playerStartPosition = null;
@@ -58,7 +63,7 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     public void SpawnPlayer()
     {
-        GameObject playerShipGameObject = Toolbox.PoolManager.SpawnPrefabNamed("PlayerShip");
+        GameObject playerShipGameObject = Toolbox.PoolManager.SpawnGameObject(playerShipPrefab);
         playerShipGameObject.transform.position = playerStartPosition.position;
         PlayerShip playerShip = playerShipGameObject.GetComponent<PlayerShip>();
         if (playerShip != null)

@@ -129,21 +129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f3557339e7c0a41a238bdc96dc8990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolManager: {fileID: 0}
-  gameControl: {fileID: 0}
   initialHealthPoints: 50
   healthPoints: 100
   bulletsLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  bulletPrefabName: RoundBulletRed
+  bulletPrefab: {fileID: 134658, guid: 4c1b9a34afe805e42bb1582c99293117, type: 2}
   bulletDamage: 20
   laserPositions:
   - {fileID: 490998}
   bulletDirectionOffset: 270
   bulletSpeed: 10
   facePlayer: 0
-  scoreIncrease: 100
+  scoreValue: 100
   facePlayerAngleOffset: 90
   shootRepeatingInterval: 1.12
   velocity: {x: 0, y: 0, z: 0}
@@ -171,7 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e481f42796ed094bb452b215f32b8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolManager: {fileID: 0}
   damage: 50
   collisionLayerMask:
     serializedVersion: 2
@@ -229,6 +226,10 @@ Prefab:
       propertyPath: damage
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 134658, guid: 4c1b9a34afe805e42bb1582c99293117, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131766}

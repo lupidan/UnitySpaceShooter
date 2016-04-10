@@ -23,6 +23,7 @@
 ///
 
 using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 
 /// <summary>
@@ -36,57 +37,50 @@ public class GameObjectPoolManager : MonoBehaviour {
     private Dictionary<string, GameObjectPool> gameObjectPools = new Dictionary<string, GameObjectPool>();
 
     /// <summary>
-    /// A public list of prefabs that will have it's own prefab GameObjectPool.
+    /// Returns a Game Object Pool for a specific GameObject. If no Game Object Pool for that prefab exists, we create one.
     /// </summary>
-    public List<GameObject> prefabs = new List<GameObject>();
-
-    /// <summary>
-    /// Initializes the GameObject instances pool for all the specified prefabs.
-    /// </summary>
-    private void InitializeGameObjectPools()
+    /// <param name="gameObject">The GameObject we want to retrieve the Game Object Pool of. It can't be null.</param>
+    /// <returns>The GameObject pool, or null if something went wrong.</returns>
+    public GameObjectPool GameObjectPoolForPrefab(GameObject gameObject)
     {
-        foreach (GameObject gameObject in prefabs)
+        Assert.IsNotNull(gameObject);
+        Assert.IsNotNull(gameObject.name);
+
+        string gameObjectPoolKey = gameObject.name;
+        GameObjectPool gameObjectPool = null;
+        if (!gameObjectPools.TryGetValue(gameObjectPoolKey, out gameObjectPool))
         {
-            GameObjectPool prefabPool = new GameObjectPool(gameObject, 1);
-            gameObjectPools.Add(gameObject.name, prefabPool);
+            gameObjectPool = new GameObjectPool(gameObject, 1);
+            gameObjectPools.Add(gameObjectPoolKey, gameObjectPool);
         }
+        return gameObjectPool;
     }
 
     /// <summary>
-    /// Spawns a prefab with a specific name.
+    /// Spawns a game object using the pooling method.
     /// </summary>
-    /// <param name="name">The name of the profab we want to spawn a instance of.</param>
-    /// <returns>The spawned GameObject, or null if there is no prefab pool for that name.</returns>
-    public GameObject SpawnPrefabNamed(string name)
+    /// <param name="gameObject">The GameObject we want to spawn a instance of.</param>
+    /// <returns>The spawned GameObject, or null if there is no game object pool for that name.</returns>
+    public GameObject SpawnGameObject(GameObject gameObject)
     {
-        GameObject spawnedObject = null;
-        GameObjectPool prefabPool = null;
-        if (gameObjectPools.TryGetValue(name, out prefabPool))
-        {
-            spawnedObject = prefabPool.SpawnObject();
-        }
-        else
-        {
-            Debug.LogError("Error: Prefab pool for " + name + " does not exist. Can't spawn Object.");
-        }
-        return spawnedObject;
+        GameObjectPool gameObjectPool = GameObjectPoolForPrefab(gameObject);
+        return gameObjectPool.SpawnObject();
     }
 
     /// <summary>
-    /// Recycles a GameObject instance with a specific prefab name. If there is no pool for the specified prefab name, the object is destroyed.
+    /// Recycles a GameObject instance with a specific name. If there is no pool for the specified game object name, the object is destroyed.
     /// </summary>
-    /// <param name="name">The name of the prefab from which the GameObject is an instance of.</param>
     /// <param name="gameObject">The GameObject to recycle in one of the pools.</param>
-    public void RecycleGameObject(string name, GameObject gameObject)
+    public void RecycleGameObject(GameObject gameObject)
     {
-        GameObjectPool prefabPool = null;
-        if (gameObjectPools.TryGetValue(name, out prefabPool))
+        GameObjectPool gameObjectPool = null;
+        if (gameObjectPools.TryGetValue(gameObject.name, out gameObjectPool))
         {
-            prefabPool.RecycleObject(gameObject);
+            gameObjectPool.RecycleObject(gameObject);
         }
         else
         {
-            Debug.LogError("Error: Prefab pool for " + name + " does not exist. Destroying GameObject");
+            Debug.LogError("Error: Game Object pool for " + name + " does not exist. Destroying GameObject");
             Destroy(gameObject);
         }
     }
@@ -104,7 +98,7 @@ public class GameObjectPoolManager : MonoBehaviour {
 
     void Start()
     {
-        InitializeGameObjectPools();
+        
     }
 
 }

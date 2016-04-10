@@ -101,12 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b5426ecf212b54f8ec80668f373f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolManager: {fileID: 0}
   initialHealthPoints: 100
+  healthPoints: 100
   bulletsLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  bulletPrefabName: LaserBulletBlue
+  bulletPrefab: {fileID: 135544, guid: bc2394f02755ba042bf556b7d1f0c0bd, type: 2}
   bulletDamage: 50
   laserPositions:
   - {fileID: 482188}
@@ -154,7 +154,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 135544, guid: bc2394f02755ba042bf556b7d1f0c0bd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109034}

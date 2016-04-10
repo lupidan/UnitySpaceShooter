@@ -31,9 +31,9 @@ using UnityEngine;
 public class EnemySpawnEvent
 {
     /// <summary>
-    /// The name of the enemy ship prefab to instantiate.
+    /// The enemy ship prefab to instantiate.
     /// </summary>
-    public string enemyPrefabName = "EnemyShip_";
+    public GameObject enemyPrefab = null;
 
     /// <summary>
     /// The starting position of the enemy when spawned.
