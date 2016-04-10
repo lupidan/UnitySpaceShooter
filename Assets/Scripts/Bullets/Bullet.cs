@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour, IPooledObject {
 
         if (!activeArea.Contains(transform.position))
         {
-            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject);
         }
     }
 

@@ -62,7 +62,7 @@ public class DamageInflictor: MonoBehaviour {
             {
                 damageInflictable.InflictDamage(damage);
             }
-            Toolbox.PoolManager.RecycleGameObject(gameObject.name, gameObject);
+            Toolbox.PoolManager.RecycleGameObject(gameObject);
         }
     }
 
