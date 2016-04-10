@@ -62,9 +62,9 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
         {
             healthPoints = value;
 
-            if (onHealthChange != null)
+            if (OnHealthChange != null)
             {
-                onHealthChange(this);
+                OnHealthChange(this);
             }
         }
     }
@@ -148,9 +148,9 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     public virtual void OnDespawn()
     {
-        if (onHealthChange != null)
+        if (OnHealthChange != null)
         {
-            onHealthChange = null;
+            OnHealthChange = null;
         }
     }
 
