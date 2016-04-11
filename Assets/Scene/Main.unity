@@ -250,7 +250,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedContinueGame
+        m_MethodName: ButtonStartGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -371,7 +371,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedEndGame
+        m_MethodName: ButtonEndGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -796,7 +796,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedChangeControlMode
+        m_MethodName: ButtonChangeControlModeSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1116,7 +1116,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedExitGame
+        m_MethodName: ButtonQuitGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1521,7 +1521,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedEndGame
+        m_MethodName: ButtonEndGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2390,7 +2390,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedStartGame
+        m_MethodName: ButtonStartGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2511,7 +2511,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 963886536}
-        m_MethodName: ButtonSelectedContinueGame
+        m_MethodName: ButtonContinueGameSelected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
