@@ -186,11 +186,15 @@ public class GameMenu : MonoBehaviour {
     public void OnGameEnd(GameControl gameControl)
     {
         VisibleOption = Option.MainMenu;
+
+        gameControl.playerShip.OnHealthChange -= OnHealthChange;
     }
 
     public void OnGameFinished(GameControl gameControl)
     {
         VisibleOption = GameMenu.Option.GameOverMenu;
+
+        gameControl.playerShip.OnHealthChange -= OnHealthChange;
     }
 
     public void OnScoreUpdate(GameControl gameControl)

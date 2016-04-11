@@ -148,10 +148,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
     public virtual void OnDespawn()
     {
-        if (OnHealthChange != null)
-        {
-            OnHealthChange = null;
-        }
+        //Nothing here
     }
 
     public virtual void InflictDamage(float damage)
