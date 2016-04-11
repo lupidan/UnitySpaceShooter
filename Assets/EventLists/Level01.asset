@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d5fc1a737fa5f48a7cf928124c3772, type: 3}
+  m_Name: Level01
+  m_EditorClassIdentifier: 
+  entries:
+  - entryName: EnemyShip_00 from both sides A
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: -9.5, y: 3, z: 0}
+      enemyVelocity: {x: 3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: 9.5, y: 2, z: 0}
+      enemyVelocity: {x: -3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_00 from both sides B
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: -9.5, y: 2, z: 0}
+      enemyVelocity: {x: 3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: 9.5, y: 3, z: 0}
+      enemyVelocity: {x: -3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from bottom
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: 4, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: -4, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from bottom and arc to center
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: 6, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: -0.5, y: 0, z: 0}
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: -6, y: -7, z: 0}
+      enemyVelocity: {x: 0, y: 2, z: 0}
+      enemyAcceleration: {x: 0.5, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_00 from top and back up with horizontal movement
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: 5, y: 7, z: 0}
+      enemyVelocity: {x: -2, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+    - enemyPrefab: {fileID: 131766, guid: 52acf3e95d23624478c6ced9d0fa46bc, type: 2}
+      enemyStartPoint: {x: -5, y: 7, z: 0}
+      enemyVelocity: {x: 2, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_01 from top and back up
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: 4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+    - enemyPrefab: {fileID: 143782, guid: 8728747e643c9f442b891cb970af0767, type: 2}
+      enemyStartPoint: {x: -4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_02 from both sides A
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: -9.5, y: 3, z: 0}
+      enemyVelocity: {x: 3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: 9.5, y: 2, z: 0}
+      enemyVelocity: {x: -3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_02 from both sides B
+    timeTillNextEvent: 0.75
+    numberOfTimes: 3
+    spawnEvents:
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: -9.5, y: 2, z: 0}
+      enemyVelocity: {x: 3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: 9.5, y: 3, z: 0}
+      enemyVelocity: {x: -3, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_02 from both sides C
+    timeTillNextEvent: 0.75
+    numberOfTimes: 5
+    spawnEvents:
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: -9.5, y: 2, z: 0}
+      enemyVelocity: {x: 10, y: 1, z: 0}
+      enemyAcceleration: {x: -6, y: 0, z: 0}
+    - enemyPrefab: {fileID: 134690, guid: 6d28e27081437ba4eba9eb1122909306, type: 2}
+      enemyStartPoint: {x: 9.5, y: 2, z: 0}
+      enemyVelocity: {x: -10, y: 1, z: 0}
+      enemyAcceleration: {x: 6, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_03 from top to down
+    timeTillNextEvent: 0.75
+    numberOfTimes: 1
+    spawnEvents:
+    - enemyPrefab: {fileID: 128186, guid: d2b4f99be90f5c1429b62118cb8dc5af, type: 2}
+      enemyStartPoint: {x: 4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+    - enemyPrefab: {fileID: 128186, guid: d2b4f99be90f5c1429b62118cb8dc5af, type: 2}
+      enemyStartPoint: {x: -4, y: 7, z: 0}
+      enemyVelocity: {x: 0, y: -10, z: 0}
+      enemyAcceleration: {x: 0, y: 6, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 3
+    numberOfTimes: 1
+    spawnEvents: []
+  - entryName: EnemyShip_04 from left side
+    timeTillNextEvent: 1.1
+    numberOfTimes: 4
+    spawnEvents:
+    - enemyPrefab: {fileID: 154932, guid: eb0921ed9e9d468468acaf4e574ae4d0, type: 2}
+      enemyStartPoint: {x: -9.5, y: 2, z: 0}
+      enemyVelocity: {x: 2, y: 0, z: 0}
+      enemyAcceleration: {x: 0, y: 0, z: 0}
+  - entryName: Interval
+    timeTillNextEvent: 5
+    numberOfTimes: 1
+    spawnEvents: []
