@@ -165,6 +165,7 @@ public class GameMenu : MonoBehaviour {
         VisibleOption = Option.GameMenu;
 
         gameControl.playerShip.OnHealthChange += OnHealthChange;
+        UpdateHealthImage(1.0f);
     }
 
     public void OnControlModeChange(GameControl gameControl)
