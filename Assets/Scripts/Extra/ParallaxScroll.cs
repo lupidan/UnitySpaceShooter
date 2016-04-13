@@ -44,14 +44,14 @@ public class ParallaxScroll : MonoBehaviour {
     /// </summary>
     public float speedMultiplier = 1.0f;
 
-	void Start ()
+    void Start ()
     {
         this.textureRenderer = GetComponent<Renderer>();
-	}
+    }
 	
-	void Update ()
+    void Update ()
     {
         textureRenderer.material.mainTextureOffset += materialSpeedPerSecond * Time.deltaTime * speedMultiplier;
-	}
+    }
 
 }

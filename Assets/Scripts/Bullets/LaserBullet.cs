@@ -34,11 +34,11 @@ public class LaserBullet : Bullet {
     /// </summary>
     public float angleOffset = 90.0f;
 
-	public override void Update ()
+    public override void Update ()
     {
         base.Update();
 
         float angle = direction + angleOffset;
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-	}
+    }
 }

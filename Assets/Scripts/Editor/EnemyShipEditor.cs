@@ -5,7 +5,7 @@ using UnityEditor;
 public class EnemyShipEditor : Editor {
 
     [DrawGizmo(GizmoType.Selected)]
-	static void DrawInterestingAreas(EnemyShip enemyShip, GizmoType gizmoType)
+    static void DrawInterestingAreas(EnemyShip enemyShip, GizmoType gizmoType)
     {
         Gizmos.color = Color.red;
         enemyShip.activeArea.DrawGizmo();

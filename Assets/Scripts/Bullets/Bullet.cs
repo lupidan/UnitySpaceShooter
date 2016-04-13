@@ -67,7 +67,7 @@ public class Bullet : MonoBehaviour, IPooledObject {
         direction = 270.0f;
         speed = 10.0f;
         acceleration = 0.0f;
-}
+    }
 
     public void OnDespawn()
     {
