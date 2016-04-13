@@ -25,7 +25,7 @@
 using UnityEngine;
 
 /// <summary>
-/// The IDamageable interface defines something that has the abilitie of being inflicted with damage
+/// The IDamageable interface defines something that has the ability of being inflicted with damage
 /// </summary>
 public interface IDamageInflictable {
 
@@ -52,6 +52,11 @@ public class DamageInflictor: MonoBehaviour {
     /// </summary>
     public LayerMask collisionLayerMask;
 
+    /// <summary>
+    /// Whether this game object should be destroyed once the damage has been inflicted after a collision
+    /// </summary>
+    public bool shouldBeDestroyedOnDamageInflicted = true;
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -62,7 +67,11 @@ public class DamageInflictor: MonoBehaviour {
             {
                 damageInflictable.InflictDamage(damage);
             }
-            Toolbox.PoolManager.RecycleGameObject(gameObject);
+
+            if (shouldBeDestroyedOnDamageInflicted)
+            {
+                Toolbox.PoolManager.RecycleGameObject(gameObject);
+            }
         }
     }
 

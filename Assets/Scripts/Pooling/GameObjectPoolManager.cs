@@ -96,9 +96,4 @@ public class GameObjectPoolManager : MonoBehaviour {
         }
     }
 
-    void Start()
-    {
-        
-    }
-
 }
