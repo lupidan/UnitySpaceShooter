@@ -60,6 +60,7 @@ public class EnemySpawnManager : MonoBehaviour {
             {
                 enemyShip.velocity = spawnEvent.enemyVelocity;
                 enemyShip.acceleration = spawnEvent.enemyAcceleration;
+                enemyShip.OnShipDestroyed += OnEnemyShipDestroyed;
             }
 
             return playerShipGameObject;
@@ -103,6 +104,21 @@ public class EnemySpawnManager : MonoBehaviour {
             numberOfRepeats = 0;
         }
         Invoke("NextEvent", entry.timeTillNextEvent);
+    }
+
+    /// <summary>
+    /// Method called when a spawned enemy is destroyed
+    /// </summary>
+    /// <param name="ship">The spawned enemy ship that got destroyed.</param>
+    public void OnEnemyShipDestroyed(Ship ship)
+    {
+        ship.OnShipDestroyed -= OnEnemyShipDestroyed;
+
+        EnemyShip enemyShip = ship as EnemyShip;
+        if (enemyShip != null)
+        {
+            Toolbox.GameControl.Score += enemyShip.scoreValue;
+        }
     }
 
 }

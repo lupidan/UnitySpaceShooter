@@ -134,16 +134,4 @@ public class EnemyShip : Ship {
         CancelInvoke("ShootIfInside");
     }
 
-
-
-    public override void InflictDamage(float damage)
-    {
-        base.InflictDamage(damage);
-
-        if (HealthPoints <= 0.0f)
-        {
-            Toolbox.GameControl.Score += scoreValue;
-        }
-    }
-
 }

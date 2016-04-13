@@ -163,18 +163,6 @@ public class PlayerShip : Ship
         {
             SetInvincibleForTime(0.5f);
         }
-        else
-        {
-            if (Toolbox.GameControl.Lives <= 0)
-            {
-                Toolbox.GameControl.FinishGame();
-            }
-            else
-            {
-                Toolbox.GameControl.Lives -= 1;
-                Toolbox.GameControl.SpawnPlayerInTime(2.0f);
-            }
-        }
     }
 
 }
