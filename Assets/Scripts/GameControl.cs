@@ -183,6 +183,7 @@ public class GameControl : MonoBehaviour {
         if (playerShip != null)
         {
             playerShip.SetInvincibleForTime(1.0f);
+            playerShip.OnShipDestroyed += OnPlayerShipDestroyed;
 
             this.playerShip = playerShip;
         }
@@ -295,6 +296,25 @@ public class GameControl : MonoBehaviour {
         if (OnGameFinished != null)
         {
             OnGameFinished(this);
+        }
+    }
+
+    /// <summary>
+    /// Called when the spawned player's ship is destroyed.
+    /// </summary>
+    /// <param name="ship">The ship that got destroyed.</param>
+    public void OnPlayerShipDestroyed(Ship ship)
+    {
+        ship.OnShipDestroyed -= OnPlayerShipDestroyed;
+
+        if (Lives <= 0)
+        {
+            FinishGame();
+        }
+        else
+        {
+            Lives -= 1;
+            SpawnPlayerInTime(2.0f);
         }
     }
     

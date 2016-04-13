@@ -36,9 +36,14 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
 
 
     /// <summary>
-    /// Event when the ship's health changes
+    /// Event when the ship's health changes.
     /// </summary>
     public event ShipEvent OnHealthChange;
+
+    /// <summary>
+    /// Event when the ship gets destroyed.
+    /// </summary>
+    public event ShipEvent OnShipDestroyed;
 
 
 
@@ -157,6 +162,11 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
         if (HealthPoints <= 0.0f)
         {
             Toolbox.PoolManager.RecycleGameObject(gameObject);
+
+            if (OnShipDestroyed != null)
+            {
+                OnShipDestroyed(this);
+            }
         }
     }
 
