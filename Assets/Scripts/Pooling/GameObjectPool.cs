@@ -105,9 +105,9 @@ public class GameObjectPool {
         spawnedObjects.Add(gameObject);
 
         IPooledObject[] pooledObjectComponents = gameObject.GetComponents<IPooledObject>();
-        foreach (IPooledObject pooledObjectComponent in pooledObjectComponents)
+        for (int i=0; i < pooledObjectComponents.Length; i++)
         {
-            pooledObjectComponent.OnSpawn();
+            pooledObjectComponents[i].OnSpawn();
         }
         return gameObject;
     }
@@ -118,16 +118,14 @@ public class GameObjectPool {
     /// <param name="gameObject">The GameObject to recycle.</param>
     public void RecycleObject(GameObject gameObject)
     {
-        pooledObjects.Enqueue(gameObject);
-        gameObject.SetActive(false);
-
-        spawnedObjects.Remove(gameObject);
-
         IPooledObject[] pooledObjectComponents = gameObject.GetComponents<IPooledObject>();
-        foreach (IPooledObject pooledObjectComponent in pooledObjectComponents)
+        for (int i = 0; i < pooledObjectComponents.Length; i++)
         {
-            pooledObjectComponent.OnDespawn();
+            pooledObjectComponents[i].OnDespawn();
         }
+        spawnedObjects.Remove(gameObject);
+        gameObject.SetActive(false);
+        pooledObjects.Enqueue(gameObject);
     }
 
     /// <summary>
@@ -136,9 +134,9 @@ public class GameObjectPool {
     public void RecycleAllObjects()
     {
         GameObject[] objectsToRecycle = spawnedObjects.ToArray();
-        foreach (GameObject objectToRecycle in objectsToRecycle)
+        for (int i=0; i < objectsToRecycle.Length; i++)
         {
-            RecycleObject(objectToRecycle);
+            RecycleObject(objectsToRecycle[i]);
         }
     }
 

@@ -107,7 +107,7 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     /// <summary>
     /// A list of transform objects indicating from where lasers are shot.
     /// </summary>
-    public List<Transform> laserPositions = new List<Transform>();
+    public Transform[] laserPositions;
 
     /// <summary>
     /// The offset to add to the direction when shooting.
@@ -125,10 +125,10 @@ public class Ship : MonoBehaviour, IPooledObject, IDamageInflictable {
     /// </summary>
     protected void Shoot()
     {
-        foreach (Transform laserPosition in laserPositions)
+        for (int i=0; i < laserPositions.Length; i++)
         {
             GameObject bulletGameObject = Toolbox.PoolManager.SpawnGameObject(bulletPrefab);
-            bulletGameObject.transform.position = laserPosition.position;
+            bulletGameObject.transform.position = laserPositions[i].position;
             Bullet bullet = bulletGameObject.GetComponent<Bullet>();
             if (bullet != null)
             {
