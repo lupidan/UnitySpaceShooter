@@ -93,9 +93,10 @@ public class EnemySpawnManager : MonoBehaviour {
     private void NextEvent()
     {
         EnemySpawnEventListEntry entry = eventList.entries[eventIndex];
-        foreach (EnemySpawnEvent spawnEvent in entry.spawnEvents)
+        EnemySpawnEvent[] spawnEvents = entry.spawnEvents;
+        for (int i=0; i < spawnEvents.Length; i++)
         {
-            SpawnEnemy(spawnEvent);
+            SpawnEnemy(spawnEvents[i]);
         }
         numberOfRepeats += 1;
         if (numberOfRepeats >= entry.numberOfTimes)

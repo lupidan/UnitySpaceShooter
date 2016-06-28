@@ -98,7 +98,6 @@ public class EnemyShip : Ship {
 
     void Update()
     {
-
         if (Time.deltaTime > 0.0f)
         {
             velocity += acceleration * Time.deltaTime;

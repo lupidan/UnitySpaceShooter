@@ -63,9 +63,9 @@ public class DamageInflictor: MonoBehaviour {
         if (collisionLayerMask.ContainsLayerWithIndex(other.gameObject.layer))
         {
             IDamageInflictable[] damageInflictables = other.gameObject.GetComponents<IDamageInflictable>();
-            foreach (IDamageInflictable damageInflictable in damageInflictables)
+            for (int i=0; i < damageInflictables.Length; i++)
             {
-                damageInflictable.InflictDamage(damage);
+                damageInflictables[i].InflictDamage(damage);
             }
 
             if (shouldBeDestroyedOnDamageInflicted)

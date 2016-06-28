@@ -90,9 +90,11 @@ public class GameObjectPoolManager : MonoBehaviour {
     /// </summary>
     public void RecycleAllSpawnedObjects()
     {
-        foreach (GameObjectPool gameObjectPool in gameObjectPools.Values)
+        GameObjectPool[] pools = new GameObjectPool[gameObjectPools.Count];
+        gameObjectPools.Values.CopyTo(pools, 0);
+        for (int i=0; i < pools.Length; i++)
         {
-            gameObjectPool.RecycleAllObjects();
+            pools[i].RecycleAllObjects();
         }
     }
 
