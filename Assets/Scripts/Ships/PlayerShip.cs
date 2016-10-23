@@ -83,6 +83,7 @@ public class PlayerShip : Ship
     /// </summary>
     private IShipControl shipControl;
 
+    private float lastTimeShot;
 
 
     /// <summary>
@@ -126,9 +127,11 @@ public class PlayerShip : Ship
             Vector3 newPosition = shipControl.UpdatePosition(transform.position, Time.deltaTime);
             transform.position = gameArea.ClampPosition(newPosition);
 
-            if (shipControl.ShootButtonPressed)
+            float timeSinceLastShoot = Time.time - lastTimeShot;
+            if (shipControl.ShootButtonPressed && timeSinceLastShoot > 0.25f)
             {
                 Shoot();
+                lastTimeShot = Time.time;
             }
         }
     }
@@ -144,6 +147,9 @@ public class PlayerShip : Ship
         Vector3 sizeVector = maxPosition - minPosition;
         gameArea = new Rect(minPosition.x, minPosition.y, sizeVector.x, sizeVector.y);
 
+#if UNITY_ANDROID
+        this.shipControl = new TouchShipControl();
+#else
         if (GamePlayerPrefs.IsMouseControlEnabled)
         {
             this.shipControl = new MouseShipControl();
@@ -152,6 +158,8 @@ public class PlayerShip : Ship
         {
             this.shipControl = new KeyboardShipControl();
         }
+#endif
+
     }
 
 

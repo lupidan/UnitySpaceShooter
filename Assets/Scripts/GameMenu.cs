@@ -103,6 +103,11 @@ public class GameMenu : MonoBehaviour {
     public GameObject iconMouseImage = null;
 
     /// <summary>
+    /// GameObject containing the button to change the control scheme.
+    /// </summary>
+    public GameObject controlSchemeButton = null;
+
+    /// <summary>
     /// Text showing the score.
     /// </summary>
     public Text scoreText = null;
@@ -128,6 +133,10 @@ public class GameMenu : MonoBehaviour {
     void Start ()
     {
         this.VisibleOption = Option.MainMenu;
+
+#if UNITY_ANDROID
+        this.controlSchemeButton.SetActive(false);
+#endif
 
         Toolbox.GameControl.OnGameStart += OnGameStart;
         Toolbox.GameControl.OnControlModeChange += OnControlModeChange;

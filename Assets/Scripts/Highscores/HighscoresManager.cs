@@ -27,6 +27,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
 public class HighscoresManager : MonoBehaviour {
 
@@ -65,6 +66,7 @@ public class HighscoresManager : MonoBehaviour {
         {
             FileStream highscoresFile = File.Open(HighscoresManager.Filename, FileMode.Open);
             table = (HighscoresTable)formatter.Deserialize(highscoresFile);
+            highscoresFile.Close();
         }
         else
         {
@@ -79,9 +81,17 @@ public class HighscoresManager : MonoBehaviour {
     public void Save()
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream highscoresFile = File.Create(HighscoresManager.Filename);
-        formatter.Serialize(highscoresFile, table);
-        highscoresFile.Close();
+        try
+        {
+            FileStream highscoresFile = File.Create(HighscoresManager.Filename);
+            formatter.Serialize(highscoresFile, table);
+            highscoresFile.Close();
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("Could't save :: " + exception);
+        }
+        
     }
 
     void Start()
